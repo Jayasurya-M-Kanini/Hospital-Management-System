@@ -128,5 +128,47 @@ namespace HospitalAPI.Controllers
             }
             return Ok(user);
         }
+
+
+        [HttpPut("Update_Doctor_Status")]
+        //[Authorize(Roles = "Manager")]
+        [ProducesResponseType(typeof(ActionResult<StatusDTO>), StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<StatusDTO>> UpdateUserStatus(StatusDTO userApproval)
+        {
+            var result = await _admin.ChangeDoctorStatus(userApproval);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest("Unable to update the status");
+
+        }
+
+        [HttpGet("Get_All_UnApproved_Doctors")]
+        [ProducesResponseType(typeof(ActionResult<ICollection<Doctor>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<ICollection<Doctor>>> ViewAllUnApprovedDoctors()
+        {
+            var user = await _admin.ViewAllUnapprovedDoctors();
+            if (user==null)
+            {
+                return BadRequest("No Requests pending");
+            }
+            return Ok(user);
+        }
+
+        [HttpGet("Get_All_Approved_Doctors")]
+        [ProducesResponseType(typeof(ActionResult<ICollection<Doctor>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<ICollection<Doctor>>> ViewAllApprovedDoctors()
+        {
+            var user = await _patient.ViewAllApprovedDoctors();
+            if (user == null)
+            {
+                return BadRequest("No Doctors available !!");
+            }
+            return Ok(user);
+        }
     }
 }

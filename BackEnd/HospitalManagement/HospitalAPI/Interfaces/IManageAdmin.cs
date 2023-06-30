@@ -6,8 +6,8 @@ namespace HospitalAPI.Interfaces
     public interface IManageAdmin
     {
         public  Task<UserDTO> AdminRegistration(Admin user);
-        public  Task<Doctor> ChangeDoctorStatus();
-        public Task<Doctor> ViewAllUnapprovedDoctors();
+        public  Task<StatusDTO> ChangeDoctorStatus(StatusDTO userApproval);
+        public Task<ICollection<Doctor>?> ViewAllUnapprovedDoctors();
 
     }
 }

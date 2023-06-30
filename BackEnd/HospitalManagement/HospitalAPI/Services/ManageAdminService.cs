@@ -56,14 +56,32 @@ namespace HospitalAPI.Services
             return myUser;
         }
 
-        public Task<Doctor> ChangeDoctorStatus()
+        public async Task<StatusDTO?> ChangeDoctorStatus(StatusDTO userApproval)
         {
-            throw new NotImplementedException();
+            var userData = await _doctorRepo.Get(userApproval.Id);
+            if (userData != null)
+            {
+                userData.Status = userApproval.Status;
+                var result = await _doctorRepo.Update(userData);
+                if (result != null)
+                {
+                    return userApproval;
+                }
+            }
+            return null;
         }
 
-        public Task<Doctor> ViewAllUnapprovedDoctors()
+        public async Task<ICollection<Doctor>?> ViewAllUnapprovedDoctors()
         {
-            throw new NotImplementedException();
+            var userData = await _doctorRepo.GetAll();
+            if (userData != null)
+            {
+                var myUsers = userData.Where(u => u.Status == "UnApproved").ToList();
+                if(myUsers.Count>0) {
+                    return myUsers;
+                }
+            }
+            return null;
         }
     }
 }

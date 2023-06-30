@@ -6,6 +6,6 @@ namespace HospitalAPI.Interfaces
     public interface IManagePatient
     {
         public Task<UserDTO> PatientRegistration(PatientRegisterDTO user);
-        public Task<Doctor> ViewAllApprovedDoctors();
+        public Task<ICollection<Doctor>> ViewAllApprovedDoctors();
     }
 }

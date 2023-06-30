@@ -48,9 +48,18 @@ namespace HospitalAPI.Services
             return myUser;
         }
 
-        public Task<Doctor> ViewAllApprovedDoctors()
+        public async Task<ICollection<Doctor>?> ViewAllApprovedDoctors()
         {
-            throw new NotImplementedException();
+            var userData = await _doctorRepo.GetAll();
+            if (userData != null)
+            {
+                var myUsers = userData.Where(u => u.Status == "Approved").ToList();
+                if (myUsers.Count > 0)
+                {
+                    return myUsers;
+                }
+            }
+            return null;
         }
     }
 }
