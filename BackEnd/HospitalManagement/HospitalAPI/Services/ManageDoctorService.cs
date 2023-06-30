@@ -15,7 +15,7 @@ namespace HospitalAPI.Services
 
         public ManageDoctorService(IBaseCRUD<int, User> userRepo, IBaseCRUD<int, Doctor> doctorRepo, IBaseCRUD<int, Patient> patientRepo, IGenerateToken generateToken)
         {
-            _userRepo = userRepo;
+            _userRepo = userRepo; 
             _doctorRepo = doctorRepo;
             _patientRepo = patientRepo;
             _generateToken = generateToken;
@@ -44,7 +44,9 @@ namespace HospitalAPI.Services
                 myUser = new UserDTO();
                 myUser.UserId = doctorResult.DoctorId;
                 myUser.Role = userResult.Role;
-                myUser.Token = _generateToken.GenerateToken(myUser);
+                myUser.Status = doctorResult.Status;
+                myUser.Token = (userResult.Role == "Doctor" && doctorResult.Status == "Approved") || (userResult.Role == "Patient") || (userResult.Role == "Admin") ?
+                    _generateToken.GenerateToken(myUser) : null;
             }
             return myUser;
         }

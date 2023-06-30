@@ -43,6 +43,7 @@ namespace HospitalAPI.Services
                 myUser = new UserDTO();
                 myUser.UserId = patientResult.PatientId;
                 myUser.Role = userResult.Role;
+                myUser.Status = null;
                 myUser.Token = _generateToken.GenerateToken(myUser);
             }
             return myUser;

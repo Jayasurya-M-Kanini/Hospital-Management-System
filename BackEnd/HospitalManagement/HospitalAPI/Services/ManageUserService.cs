@@ -24,17 +24,7 @@ namespace HospitalAPI.Services
             _adminRepo = adminRepo;
             _generateToken = generateToken;
         }
-      
 
-        public Task<Doctor> ChangeDoctorStatus()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<UserDTO> DoctorRegistration(DoctorRegisterDTO user)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<UserDTO> Login(UserDTO user)
         {
@@ -48,10 +38,13 @@ namespace HospitalAPI.Services
                     if (userPass[i] != userData.PasswordHash[i])
                         return null;
                 }
+                var status=await _doctorRepo.Get(user.UserId);
                 user = new UserDTO();
                 user.UserId = userData.UserId;
                 user.Role = userData.Role;
-                user.Token = _generateToken.GenerateToken(user);
+                user.Status = userData.Role == "Doctor" ? status.Status : null;
+                user.Token = (userData.Role == "Doctor" && status.Status=="Approved")||(userData.Role=="Patient")||(userData.Role == "Admin") ? 
+                    _generateToken.GenerateToken(user):null;
             }
             return user;
         }
