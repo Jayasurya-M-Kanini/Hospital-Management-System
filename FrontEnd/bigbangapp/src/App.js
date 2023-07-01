@@ -11,7 +11,7 @@ function App() {
   return (
 <div>
   <BrowserRouter>
-  <Login/>
+  {/* <Login/> */}
   <AccountType/>
   <routes>
     <route path='/AccountType/' element={<AccountType/>}/>

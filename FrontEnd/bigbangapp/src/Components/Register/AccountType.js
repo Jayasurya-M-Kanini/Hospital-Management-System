@@ -18,7 +18,7 @@ function AccountType() {
     };
 
   return (
-    <div className="account-container">
+<header class="header">
 <div className="account-type-selection">
       <h2>Choose an Account Type</h2>
       <div className="account-types">
@@ -57,8 +57,7 @@ function AccountType() {
         Next
       </button>
     </div>
-    </div>
-    
+</header>  
   );
 }
 

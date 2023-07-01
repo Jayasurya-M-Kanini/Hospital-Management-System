@@ -1,7 +1,7 @@
 import React from "react";
 import './Login.css';
 import '../images/login-1.jpg';
-import login from '../images/DreamShaper_v5_give_me_a_doctor_png_with_a_big_eliptical_blue_1.jpg';
+import login from '../images/Pediatrician-pana.png';
 import { Link } from "react-router-dom";
 
 function Login(){
