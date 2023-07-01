@@ -1,5 +1,6 @@
 ﻿using HospitalAPI.Interfaces;
 using HospitalAPI.Models;
+using HospitalAPI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAPI.Services
@@ -86,9 +87,8 @@ namespace HospitalAPI.Services
                 {
                     patient.EmailId = item.EmailId != null ? item.EmailId : patient.EmailId;
                     patient.PhoneNumber = item.PhoneNumber != null ? item.PhoneNumber : patient.PhoneNumber;
-
                     await _context.SaveChangesAsync();
-                    return patient;
+                    return item;
                 }
             }
             catch (Exception ex)

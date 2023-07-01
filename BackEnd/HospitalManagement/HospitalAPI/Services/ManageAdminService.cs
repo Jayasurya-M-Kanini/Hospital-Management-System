@@ -3,6 +3,7 @@ using HospitalAPI.Models.DTO;
 using HospitalAPI.Models;
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml.Linq;
 
 namespace HospitalAPI.Services
 {
@@ -24,7 +25,7 @@ namespace HospitalAPI.Services
             _generateToken = generateToken;
             _passwordGenerate=passwordGenerate;
         }
-        public async Task<UserDTO> AdminRegistration(Admin user)
+        public async Task<UserDTO?> AdminRegistration(Admin user)
         {
             UserDTO myUser = null;
             var hmac = new HMACSHA512();
@@ -77,12 +78,128 @@ namespace HospitalAPI.Services
             var userData = await _doctorRepo.GetAll();
             if (userData != null)
             {
-                var myUsers = userData.Where(u => u.Status == "UnApproved").ToList();
+                var myUsers = userData.Where(u => u.Status == "UnApproved").OrderByDescending(u => u.DoctorId).ToList();
                 if(myUsers.Count>0) {
                     return myUsers;
                 }
             }
             return null;
         }
+
+        public async Task<ICollection<Doctor>?> ViewAllDoctors()
+        {
+            var userData = await _doctorRepo.GetAll();
+            if (userData != null)
+            {
+                return userData;
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Doctor>?> SearchByName(string name)
+        {
+            var users = await _doctorRepo.GetAll();
+            if (users != null)
+            {
+                var doctors = users.Where(i => i.Name.ToUpper().Contains(name.ToUpper())).ToList();
+                if (doctors.Count > 0)
+                {
+                    return doctors;
+                }
+            }
+            return null;
+        }
+
+        public async Task<Doctor?> DeleteDoctorById(int key)
+        {
+            var userData = await _doctorRepo.Delete(key);
+            if (userData != null)
+            {
+                return userData;
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Doctor>?> SearchDoctorBySpecialization(string specialization)
+        {
+            var users = await _doctorRepo.GetAll();
+            if (users != null)
+            {
+                var doctors = users.Where(i => i.Specialization.ToUpper().Contains(specialization.ToUpper())).ToList();
+                if (doctors.Count > 0)
+                {
+                    return doctors;
+                }
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Doctor>?> SortByDescExpDoctors()
+        {
+            var userData = await _doctorRepo.GetAll();
+            if (userData != null)
+            {
+                var myUsers = userData.OrderByDescending(u => u.Experience).ToList();
+                if (myUsers.Count > 0)
+                {
+                    return myUsers;
+                }
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Doctor>?> SortByAscExpDoctors()
+        {
+            var userData = await _doctorRepo.GetAll();
+            if (userData != null)
+            {
+                var myUsers = userData.OrderBy(u => u.Experience).ToList();
+                if (myUsers.Count > 0)
+                {
+                    return myUsers;
+                }
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Doctor>?> SortByRecenetlyAddedDescDoctors()
+        {
+            var userData = await _doctorRepo.GetAll();
+            if (userData != null)
+            {
+                var myUsers = userData.OrderByDescending(u => u.DoctorId).ToList();
+                if (myUsers.Count > 0)
+                {
+                    return myUsers;
+                }
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Doctor>?> SortByRecenetlyAddedAscDoctors()
+        {
+            var userData = await _doctorRepo.GetAll();
+            if (userData != null)
+            {
+                var myUsers = userData.OrderBy(u => u.DoctorId).ToList();
+                if (myUsers.Count > 0)
+                {
+                    return myUsers;
+                }
+            }
+            return null;
+        }
+
+        public async Task<Admin?> GetAdminProfile(int key)
+        {
+            var userData = await _adminRepo.Get(key);
+            if (userData != null)
+            {
+                return userData;
+            }
+            return null;
+        }
+
+
     }
 }

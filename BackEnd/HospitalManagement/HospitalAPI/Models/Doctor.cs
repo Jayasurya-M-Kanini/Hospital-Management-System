@@ -9,12 +9,12 @@ namespace HospitalAPI.Models
         public int DoctorId { get; set; }
         [ForeignKey("DoctorId")]
         public User? User { get; set; }
+        [Required(ErrorMessage = "Name is required")]
 
-        [Required(ErrorMessage = "Name is required.")]
         [MinLength(4, ErrorMessage = "Name must be atleast 4 characters long")]
         public string? Name { get; set; }
+        [Required(ErrorMessage = "DOB is required")]
 
-        [Required(ErrorMessage = "Date of birth is required")]
         [Column(TypeName = "date")]
         public DateTime? DateOfBirth { get; set; }
 

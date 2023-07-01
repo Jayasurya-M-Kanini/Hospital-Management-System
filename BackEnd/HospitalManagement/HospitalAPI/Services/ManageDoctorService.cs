@@ -1,6 +1,7 @@
 ﻿using HospitalAPI.Interfaces;
 using HospitalAPI.Models;
 using HospitalAPI.Models.DTO;
+using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -20,7 +21,7 @@ namespace HospitalAPI.Services
             _patientRepo = patientRepo;
             _generateToken = generateToken;
         }
-        public async Task<UserDTO> DoctorRegistration(DoctorRegisterDTO user)
+        public async Task<UserDTO?> DoctorRegistration(DoctorRegisterDTO user)
         {
             UserDTO myUser = null;
             var hmac = new HMACSHA512();
@@ -49,6 +50,34 @@ namespace HospitalAPI.Services
                     _generateToken.GenerateToken(myUser) : null;
             }
             return myUser;
+        }
+        public async Task<UpdateDTO?> UpdateDoctor(UpdateDTO user)
+        {
+            var userData = await _doctorRepo.Get(user.DoctorID);
+            if (userData != null)
+            {
+                userData.Status = user.Status;
+                userData.PhoneNumber =user.PhoneNumber;
+                userData.EmailId =user.EmailId;
+                userData.Specialization =user.Specialization;
+                userData.Experience =user.Experience;
+                var result = await _doctorRepo.Update(userData);
+                if (result != null)
+                {
+                    return user;
+                }
+            }
+            return null;
+        }
+
+        public async Task<Doctor?> DoctorProfile(int key)
+        {
+            var users = await _doctorRepo.Get(key);
+            if (users != null)
+            {
+                return users;
+            }
+            return null;
         }
     }
 }

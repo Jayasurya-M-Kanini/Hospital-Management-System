@@ -85,6 +85,7 @@ namespace HospitalAPI.Services
                 if (doctor != null)
                 {
                     doctor.Status=item.Status!=null ? item.Status:doctor.Status;
+                    doctor.PhoneNumber = item.PhoneNumber != null ? item.PhoneNumber : doctor.PhoneNumber;
                     doctor.EmailId = item.EmailId != null ? item.EmailId : doctor.EmailId;
                     doctor.Specialization = item.Specialization != null ? item.Specialization : doctor.Specialization;
                     doctor.Experience = item.Experience != null ? item.Experience : doctor.Experience;
