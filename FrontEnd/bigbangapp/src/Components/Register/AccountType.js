@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState,onNext } from "react";
+import { useState} from "react";
 import './AccountType.css'
 import patient from '../images/patient-pngrepo-com.png'
 import doctor from '../images/doctor-pngrepo-com.png'
+import NavBar from "../Navbar/Navbar";
+import { useNavigate } from "react-router-dom";
 
 function AccountType() {
 
@@ -12,12 +14,21 @@ function AccountType() {
     const handleAccountTypeSelect = (accountType) => {
       setSelectedAccountType(accountType);
     };
-  
+    const navigate=useNavigate();
+
     const handleNextClick = () => {
-    //   selectedAccountType=="manager"?():();
+      console.log(selectedAccountType);
+        if(selectedAccountType=="doctor"){
+          navigate("/DoctorRegister");
+        }
+        else{
+          navigate("/PatientRegister")
+        }
+        // selectedAccountType=="doctor"?(navigate("/DoctorRegister/")):(navigate("/PatientRegister/"));
     };
 
   return (
+    <div>
 <header class="header">
 <div className="account-type-selection">
       <h2>Choose an Account Type</h2>
@@ -53,11 +64,12 @@ function AccountType() {
                 Please choose an option to continue 
             </h3>
         </div>
-      <button onClick={handleNextClick} disabled={!selectedAccountType}>
-        Next
-      </button>
+      <button onClick={handleNextClick} disabled={!selectedAccountType}>Next</button>
     </div>
-</header>  
+</header>
+<NavBar/>  
+    </div>
+
   );
 }
 

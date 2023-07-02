@@ -1,10 +1,8 @@
 import React from "react"
 import "../AdminProfile/AdminProfile.css"
 import { useState,useEffect } from "react";
-import { Link } from "react-router-dom";
 
-
-function DoctorProfile(){
+function UnApproveProfile(){
     // const[employee,setEmployee]=useState(
     //   {
     //       "id": 0,
@@ -123,10 +121,8 @@ return(
 </div>
 <div>
 <div style={{display:"flex",
-justifyContent:"center"}}>
-            <Link to="/UpdateProfile/">
-                <button className="btn1">Edit Profile</button>
-            </Link>
+justifyContent:"center",color:"#167FE9"}}>
+            <h2>You are Yet to be Approved ...</h2>
         </div>
 </div>
 </div>
@@ -134,4 +130,4 @@ justifyContent:"center"}}>
 );
 }
 
-export default DoctorProfile;
+export default UnApproveProfile;

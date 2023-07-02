@@ -1,5 +1,6 @@
 import React from "react";
 import './Landing.css'
+import { Link } from "react-router-dom";
 
 function Landing(){
     return (
@@ -9,7 +10,7 @@ function Landing(){
 <em>WELCOME TO HEALTHCARE</em>
 <h1>Take the world's best quality Treatment</h1>
 <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h4>
-<a href="#" class="btn1">Learn More</a>
+<Link to="/Login/" class="btn1">Learn More</Link>
 </section>
 </div>
 {/* <!--SECTION2--> */}

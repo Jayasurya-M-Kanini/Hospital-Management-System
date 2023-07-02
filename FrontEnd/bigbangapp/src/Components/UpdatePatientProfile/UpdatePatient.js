@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import './UpdateDoctor.css';
+import '../UpdateDoctorProfile/UpdateDoctor.css';
 import { useNavigate } from "react-router-dom";
 
 
- const UpdateDoctor = () => {
+ const UpdatePatient = () => {
 //   const [formData, setFormData] = useState(
 //     {
 //         "id": localStorage.getItem('id'),
@@ -80,34 +80,6 @@ import { useNavigate } from "react-router-dom";
         //     setFormData({...formData,"address":event.target.value})}}
         />
       </div><br/>
-
-      <div className="up-prof">
-        {/* <label className="up-prof-label" htmlFor="passport">PASSPORT :</label> */}
-        <input
-        required
-         className="up-prof-input"
-          id="Experience"
-          name="Experience"
-        //   value={formData.message}
-          placeholder="Experience"
-        //   onChange={(event,e)=>{
-        //     setFormData({...formData,"passport":event.target.value})}}
-        />
-      </div><br/>
-
-      <div className="up-prof">
-        {/* <label className="up-prof-label" htmlFor="dl number">DL NUMBER :</label> */}
-        <input
-          required
-          className="up-prof-input"
-          id="Specialization"
-          name="Specialization"
-        //   value={formData.message}
-          placeholder="Specialization"
-        //   onChange={(event,e)=>{
-        //     setFormData({...formData,"drivingLicenseNumber":event.target.value})}}
-        />
-      </div><br/>
       <div className="prof-btn">
       <button className="up-prof-btn" type="submit" >SUMBIT</button>
       {/* onClick={update} */}
@@ -118,4 +90,4 @@ import { useNavigate } from "react-router-dom";
     
   );
 };
- export default UpdateDoctor;
+ export default UpdatePatient;

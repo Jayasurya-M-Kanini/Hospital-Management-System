@@ -3,10 +3,12 @@ import './Login.css';
 import '../images/login-1.jpg';
 import login from '../images/Pediatrician-pana.png'
 import { Link } from "react-router-dom";
+import NavBar from "../Navbar/Navbar";
 
 function Login(){
     return (
-      <div className="container">
+      <div>
+<div className="container">
         <div className="image-column">
           <img src={login} alt="Login" className="login-image" />
         </div>
@@ -63,6 +65,9 @@ function Login(){
           </div>
         </div>
       </div>
+      <NavBar/>
+      </div>
+      
     );  
 }
 

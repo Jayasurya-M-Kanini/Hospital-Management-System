@@ -1,6 +1,7 @@
 ﻿using HospitalAPI.Interfaces;
 using HospitalAPI.Models;
 using HospitalAPI.Models.DTO;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,8 @@ namespace HospitalAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("ReactCORS")]
+
     public class DoctorController : ControllerBase
     {
         private readonly IManageDoctor _doctor;

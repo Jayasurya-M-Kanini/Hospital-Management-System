@@ -2,10 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./PatientRegister.css"
 import login from "../images/Person with a cold-pana.png";
+import NavBar from "../Navbar/Navbar";
 
 function PatientRegister() {
   return (
-    <div className="container">
+    <div>
+<div className="container">
       <div className="Patient-form-column">
         <div class="wrapper" id="patient-wrapper">
           <div class="inner-warpper text-center">
@@ -94,6 +96,8 @@ function PatientRegister() {
         <img src={login} alt="Admin" className="login-image" />
       </div>
       </div>
+      <NavBar/>
+    </div>
   );
 }
 

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import "./Navbar.css";
-import { Link } from "react-router-dom";
+import {FaSignOutAlt } from "react-icons/fa";
+import "../Navbar/Navbar.css";
 
-function NavBar() {  
+function UnApproveNavbar() {  
     const [navActive, setNavActive] = React.useState(false);
 
     const toggleNavItems = () => {
@@ -22,15 +21,10 @@ function NavBar() {
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
-
         <ul className={`nav-items ${navActive ? 'active' : ''}`}>
-            <li class="nav-link"><Link to="/">Home</Link></li>
-            <li class="nav-link"><a href="#">Service</a></li>
-            <li class="nav-link"><a href="#">Projects</a></li>
-            <li class="nav-link"><a href="#">About</a></li>
+            <li class="nav-link"><a href="#">Profile</a></li>
             <div class="login-register">
-                <Link to="/Login/" class="button">Login</Link>
-                <Link to="/AccountType/" class="button">Sign Up</Link>
+                <a href="#" class="button"><FaSignOutAlt className="navbar-icon"/>&nbsp;&nbsp;LogOut</a>
             </div>
         </ul>
     </nav>
@@ -39,4 +33,4 @@ function NavBar() {
     );
   }
 
-  export default NavBar;
+  export default UnApproveNavbar;

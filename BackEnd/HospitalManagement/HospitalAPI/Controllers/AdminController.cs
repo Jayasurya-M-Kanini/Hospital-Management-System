@@ -3,11 +3,14 @@ using HospitalAPI.Models.DTO;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace HospitalAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("ReactCORS")]
+
     public class AdminController : ControllerBase
     {
         private readonly IManageAdmin _admin;

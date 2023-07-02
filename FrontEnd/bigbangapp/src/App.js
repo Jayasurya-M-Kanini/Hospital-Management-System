@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import { Route,Routes } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ReactComponentElement } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,33 +18,26 @@ import PatientNavBar from './Components/PatientNavbar/PatientNavbar';
 import AdminProfile from './Components/AdminProfile/AdminProfile';
 import DoctorProfile from './Components/DoctorProfile/DoctorProfile';
 import PatientProfile from './Components/PatientProfile/PatientProfile';
+import UpdateDoctor from './Components/UpdateDoctorProfile/UpdateDoctor';
+import UpdatePatient from './Components/UpdatePatientProfile/UpdatePatient';
+import UnApproveNavbar from './Components/UnApprovedDoctor/UnApproveNavbar';
+import UnApproveProfile from './Components/UnApprovedDoctor/UnApproveProfile';
+import Home from './Components/Home/Home';
+
 
 function App() {
   return (
 <div>
   <BrowserRouter>
-  {/* <AdminProfile/> */}
-    {/* <Landing/> */}
-    {/* <AdminNavbar/> */}
-    {/* <DoctorProfile/> */}
-    <PatientProfile/>
-    <DoctorNavBar/>
-    {/* <PatientNavBar/> */}
-  {/* <Navbar/> */}
-  {/* <DoctorRegister/> */}
-  {/* <PatientRegister/> */}
-  {/* <AdminRegister/> */}
-  {/* <Login/> */}
-  {/* <AccountType/>  */}
-  <routes>
-    <route path='/AccountType/' element={<AccountType/>}/>
-    <route path='/Register/' element={<Register/>}/>
-  </routes>
-  </BrowserRouter>
+  <Routes>
+      <Route path='/' element={<Home/>}/> 
+      <Route path='Login' element={<Login/>}/> 
+      <Route path='/AccountType/' element={<AccountType/>}/>
+      <Route path='/DoctorRegister' element={<DoctorRegister/>}/>
+      <Route path='/PatientRegister' element={<PatientRegister/>}/>
 
-  {/* <div>
-    <FontAwesomeIcon icon={['fas','home']} />
-  </div> */}
+  </Routes>
+  </BrowserRouter>
 
 </div>
   );
