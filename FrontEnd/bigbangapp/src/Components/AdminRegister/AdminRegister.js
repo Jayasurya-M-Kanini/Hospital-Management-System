@@ -24,7 +24,7 @@ function AdminRegister() {
   var register = () => {
     console.log(admin);
 
-    fetch("", {
+    fetch("https://localhost:7235/api/Admin/Admin_Registration", {
       method: "POST",
       headers: {
         accept: "text/plain",
@@ -35,8 +35,8 @@ function AdminRegister() {
       .then(async (data) => {
         var myData = await data.json();
         console.log(myData);
-        localStorage.setItem('id', myData.userId);
-        alert("Registerd Successfully");
+        alert("------Registerd Successfully-----");
+        alert("---User Id:"+myData.userId);
         navigate("/AdminProfile");
       })
       .catch((err) => {
@@ -78,6 +78,12 @@ function AdminRegister() {
                   type="phone"
                   placeholder="Phone Number"
                   required
+                  onChange={(event) => {
+                    setAdmin({
+                      ...admin,
+                      "phoneNumber": event.target.value,
+                    });
+                  }}
                 />
               </div>
               <div class="input-group">
