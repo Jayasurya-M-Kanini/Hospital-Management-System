@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import {FaSignOutAlt } from "react-icons/fa";
 import "../Navbar/Navbar.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 function DoctorNavBar() {  
     const [navActive, setNavActive] = React.useState(false);
@@ -33,8 +34,8 @@ function DoctorNavBar() {
         </div>
 
         <ul className={`nav-items ${navActive ? 'active' : ''}`}>
-            <li class="nav-link"><a href="#">Profile</a></li>
-            <li class="nav-link"><a href="#">Update Pofile</a></li>
+            <li class="nav-link"><Link to="/DoctorProfile">Profile</Link></li>
+            <li class="nav-link"><Link to="/UpdateDoctor">Update Pofile</Link></li>
             <div class="login-register" onClick={logout}>
                 <a href="#" class="button"><FaSignOutAlt className="navbar-icon"/>&nbsp;&nbsp;LogOut</a>
             </div>

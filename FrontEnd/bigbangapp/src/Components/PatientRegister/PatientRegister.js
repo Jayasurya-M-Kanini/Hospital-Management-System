@@ -135,7 +135,7 @@ function PatientRegister() {
                   onChange={(event) => {
                     setPatient({
                       ...patient,
-                      bloodGroup: event.target.value,
+                      bloodType: event.target.value,
                     });
                   }}
 

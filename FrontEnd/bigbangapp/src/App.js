@@ -23,7 +23,6 @@ import UnApproveNavbar from './Components/UnApprovedDoctor/UnApproveNavbar';
 import UnApproveProfile from './Components/UnApprovedDoctor/UnApproveProfile';
 import Home from './Components/Home/Home';
 
-
 function App() {
   return (
 <div>
@@ -34,11 +33,13 @@ function App() {
       <Route path='/AccountType/' element={<AccountType/>}/>
       <Route path='/DoctorRegister' element={<DoctorRegister/>}/>
       <Route path='/PatientRegister' element={<PatientRegister/>}/>
-      <Route path='/PatientRegister' element={<PatientRegister/>}/>
+      <Route path='/AdminRegister' element={<AdminRegister/>}/>
       <Route path='/AdminProfile' element={<AdminProfile/>}/>
       <Route path='/UnApproveProfile' element={<UnApproveProfile/>}/>
       <Route path='/PatientProfile' element={<PatientProfile/>}/>
       <Route path='/DoctorProfile' element={<DoctorProfile/>}/>
+      <Route path='/UpdatePatient' element={<UpdatePatient/>}/>
+      <Route path='/UpdateDoctor' element={<UpdateDoctor/>}/>
 
   </Routes>
   </BrowserRouter>

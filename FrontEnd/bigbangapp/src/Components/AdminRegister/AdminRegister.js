@@ -3,10 +3,51 @@ import { Link } from "react-router-dom";
 import "../Login/Login.css";
 import "./AdminRegister.css"
 import login from "../images/Admin-rafiki.png";
+import AdminNavBar from "../AdminNavbar/AdminNavbar";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 function AdminRegister() {
+  var [admin, setAdmin] = useState(
+    {
+      "user": {
+      },
+      "name": "",
+      "phoneNumber": "",
+      "emailId": ""
+    }
+  );
+
+  const navigate=useNavigate();
+
+  var register = () => {
+    console.log(admin);
+
+    fetch("", {
+      method: "POST",
+      headers: {
+        accept: "text/plain",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...admin,"admin":{} })
+    })
+      .then(async (data) => {
+        var myData = await data.json();
+        console.log(myData);
+        localStorage.setItem('id', myData.userId);
+        alert("Registerd Successfully");
+        navigate("/AdminProfile");
+      })
+      .catch((err) => {
+        console.log(err.error);
+      });
+  };
+
+
   return (
-    <div className="container">
+    <div>
+      <div className="container">
       <div className="form-column">
         <div class="logo text-center">{/* <h1>Company Name</h1> */}</div>
         <div class="wrapper">
@@ -19,7 +60,13 @@ function AdminRegister() {
                   id="userName"
                   type="text"
                   placeholder="User Name"
-                  // required
+                  required
+                  onChange={(event) => {
+                    setAdmin({
+                      ...admin,
+                      "name": event.target.value,
+                    });
+                  }}
                 />
                 <span class="lighting"></span>
               </div>
@@ -30,7 +77,7 @@ function AdminRegister() {
                   id="adminphone"
                   type="phone"
                   placeholder="Phone Number"
-                  // required
+                  required
                 />
               </div>
               <div class="input-group">
@@ -40,11 +87,16 @@ function AdminRegister() {
                   id="adminemail"
                   type="email"
                   placeholder="Email Id"
-                  // required
+                  required
+                  onChange={(event) => {
+                    setAdmin({
+                      ...admin,
+                      "emailId": event.target.value,
+                    });
+                  }}
                 />
               </div>
-
-              <button id="login-btn">Register</button>
+              <button id="login-btn" onClick={register}>Register</button>
           </div>
           </div>
         </div>
@@ -52,6 +104,8 @@ function AdminRegister() {
         <img src={login} alt="Admin" className="login-image" />
       </div>
       </div>
+      <AdminNavBar/>
+    </div>
   );
 }
 
