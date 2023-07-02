@@ -8,8 +8,8 @@ namespace HospitalAPI.Services
         public async Task<string?> GeneratePassword(Admin admin)
         {
             string passwordClear = String.Empty;
-            passwordClear = admin.Name.Substring(0, 4);
-            passwordClear += admin.PhoneNumber;
+            passwordClear = admin.Name.Substring(0,2);
+            passwordClear += "1234";
             return passwordClear;
         }
     }

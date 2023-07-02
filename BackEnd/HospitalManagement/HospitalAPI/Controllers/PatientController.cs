@@ -53,7 +53,7 @@ namespace HospitalAPI.Controllers
         }
 
 
-        [HttpPost("Patient_Profile")]
+        [HttpGet("Patient_Profile")]
         [ProducesResponseType(typeof(Patient), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[Authorize]
@@ -127,7 +127,7 @@ namespace HospitalAPI.Controllers
             return Ok(user);
         }
 
-        [HttpPost("Search_By_Name_Patient")]
+        [HttpGet("Search_By_Name_Patient")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[Authorize]
@@ -157,7 +157,7 @@ namespace HospitalAPI.Controllers
             }
         }
 
-        [HttpPost("Search_By_Specialization_Patient")]
+        [HttpGet("Search_By_Specialization_Patient")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[Authorize]

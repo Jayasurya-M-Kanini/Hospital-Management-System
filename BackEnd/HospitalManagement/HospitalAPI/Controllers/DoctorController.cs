@@ -50,7 +50,7 @@ namespace HospitalAPI.Controllers
             }
         }
 
-        [HttpPost("Doctor_Profile")]
+        [HttpGet("Doctor_Profile")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[Authorize]

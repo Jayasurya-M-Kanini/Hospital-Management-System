@@ -30,7 +30,7 @@ namespace HospitalAPI.Services
             UserDTO myUser = null;
             var hmac = new HMACSHA512();
             string? generatedPassword = await _passwordGenerate.GeneratePassword(user);
-            user.User.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(generatedPassword ?? "1234"));
+            user.User.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(generatedPassword));
 
             //user.User.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordClear ?? "1234"));
             user.User.PasswordKey = hmac.Key;

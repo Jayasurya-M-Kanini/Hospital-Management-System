@@ -6,6 +6,7 @@ import NavBar from "../Navbar/Navbar";
 
 function DoctorRegister() {
   return (
+    
     <div>
 <div className="container">
       <div className="Patient-form-column">

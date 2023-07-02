@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { FaBars, FaUser, FaUserMd, FaUserInjured, FaUserPlus, FaSignOutAlt } from "react-icons/fa";
 import "../Navbar/Navbar.css";
+import { useNavigate } from "react-router-dom";
 
 function AdminNavBar() {  
     const [navActive, setNavActive] = React.useState(false);
 
     const toggleNavItems = () => {
       setNavActive(!navActive);
+    };
+
+    const navigate = useNavigate();
+
+    const logout = () => {
+        localStorage.clear();
+        navigate("/");
     };
 
     return (
@@ -26,7 +34,7 @@ function AdminNavBar() {
             <li class="nav-link"><a href="#">Profile</a></li>
             <li class="nav-link"><a href="#">Patients</a></li>
             <li class="nav-link"><a href="#">Doctors</a></li>
-            <div class="login-register">
+            <div class="login-register" onClick={logout}>
                 <a href="#" class="button"><FaSignOutAlt className="navbar-icon"/>&nbsp;&nbsp;LogOut</a>
             </div>
         </ul>

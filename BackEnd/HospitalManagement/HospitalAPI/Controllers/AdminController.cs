@@ -50,7 +50,7 @@ namespace HospitalAPI.Controllers
             }
         }
 
-        [HttpPost("Admin_Profile")]
+        [HttpGet("Admin_Profile")]
         [ProducesResponseType(typeof(Admin), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[Authorize]
@@ -122,7 +122,7 @@ namespace HospitalAPI.Controllers
             return BadRequest("Unable to update the status");
         }
 
-        [HttpPost("Search_By_Name")]
+        [HttpGet("Search_By_Name")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[Authorize]
@@ -152,7 +152,7 @@ namespace HospitalAPI.Controllers
             }
         }
 
-        [HttpPost("Search_By_Specialization")]
+        [HttpGet("Search_By_Specialization")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         //[Authorize]

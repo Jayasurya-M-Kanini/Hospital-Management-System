@@ -1,16 +1,59 @@
 import React from "react";
 import './Login.css';
 import '../images/login-1.jpg';
-import login from '../images/Pediatrician-pana.png'
+import loginimg from '../images/Pediatrician-pana.png'
 import { Link } from "react-router-dom";
 import NavBar from "../Navbar/Navbar";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 function Login(){
+  const navigate = useNavigate();
+  var [Login, setLogin] = useState({
+    "userId": 0,
+    "password":"",
+    "role":"",
+    "token":"",
+    "status": ""
+  });
+  var login = () => {
+    fetch("https://localhost:7235/api/User/Login", {
+      method: "POST",
+      headers: {
+        accept: "text/plain",
+        "Content-Type": "application/json",
+      },
+      "body": JSON.stringify({ ...Login,"Login":{}}),
+    })
+      .then(async (data) => {
+        var myData = await data.json();
+        localStorage.setItem("id", myData.userId);
+        localStorage.setItem("token", myData.token);
+        if (myData.role === "Patient") {
+          console.log(myData);
+          navigate("/PatientProfile");
+        } else if (myData.role === "Admin") {
+          console.log(myData);
+          navigate("/AdminProfile");
+        } else if (myData.role === "Doctor" && myData.token==null) {
+          console.log(myData);
+          navigate("/UnApproveProfile");
+        } else {
+          console.log(myData);
+          navigate("/DoctorProfile");
+        }
+      })
+      .catch((err) => {
+        console.log(err.error);
+      });
+  };
+
     return (
       <div>
 <div className="container">
         <div className="image-column">
-          <img src={login} alt="Login" className="login-image" />
+          <img src={loginimg} alt="Login" className="login-image" />
         </div>
         <div className="form-column">
           <div class="logo text-center">
@@ -26,8 +69,15 @@ function Login(){
                     name="userName"
                     id="userName"
                     type="text"
-                    placeholder="User Name"
+                    placeholder="User ID"
                     required
+                    onChange={(event) => {
+                      setLogin({
+                        ...Login,
+                        userId: event.target.value,
+                      });
+                    }}
+
                   />
                   <span class="lighting"></span>
                 </div>
@@ -40,10 +90,17 @@ function Login(){
                     type="password"
                     placeholder="Password"
                     required
+                    onChange={(event) => {
+                      setLogin({
+                        ...Login,
+                        password: event.target.value,
+                      });
+                    }}
                   />
                 </div>
 
-                <button id="login-btn">
+                <button id="login-btn"  onClick={login}
+>
                   Login
                 </button>
                 <div class="clearfix supporter">

@@ -6,7 +6,6 @@ import { ReactComponentElement } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Login from './Components/Login/Login'
 import AccountType from './Components/Register/AccountType';
-import Register from './Components/Register/Register';
 import Navbar from './Components/Navbar/Navbar';
 import Landing from './Components/Landing/Landing';
 import AdminRegister from './Components/AdminRegister/AdminRegister';
@@ -35,6 +34,11 @@ function App() {
       <Route path='/AccountType/' element={<AccountType/>}/>
       <Route path='/DoctorRegister' element={<DoctorRegister/>}/>
       <Route path='/PatientRegister' element={<PatientRegister/>}/>
+      <Route path='/PatientRegister' element={<PatientRegister/>}/>
+      <Route path='/AdminProfile' element={<AdminProfile/>}/>
+      <Route path='/UnApproveProfile' element={<UnApproveProfile/>}/>
+      <Route path='/PatientProfile' element={<PatientProfile/>}/>
+      <Route path='/DoctorProfile' element={<DoctorProfile/>}/>
 
   </Routes>
   </BrowserRouter>
