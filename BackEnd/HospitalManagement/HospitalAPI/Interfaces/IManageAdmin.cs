@@ -9,6 +9,8 @@ namespace HospitalAPI.Interfaces
         public Task<Admin?> GetAdminProfile(int key);
         public Task<ICollection<Doctor?>?> ViewAllDoctors();
         public Task<ICollection<Doctor?>?> ViewAllUnapprovedDoctors();
+        public Task<ICollection<Patient?>?> ViewAllPatients();
+
         public Task<StatusDTO?> ChangeDoctorStatus(StatusDTO userApproval);
         public Task<Doctor?> DeleteDoctorById(int key);
         public Task<ICollection<Doctor?>?> SearchByName(string name);

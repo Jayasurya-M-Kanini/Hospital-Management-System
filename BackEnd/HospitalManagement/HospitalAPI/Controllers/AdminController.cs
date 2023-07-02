@@ -107,6 +107,19 @@ namespace HospitalAPI.Controllers
             return Ok(user);
         }
 
+        [HttpGet("View_All_Patients")]
+        [ProducesResponseType(typeof(ActionResult<ICollection<Patient>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<ICollection<Patient>>> ViewAllPatients()
+        {
+            var user = await _admin.ViewAllPatients();
+            if (user == null)
+            {
+                return BadRequest("No Patients available");
+            }
+            return Ok(user);
+        }
+
 
         [HttpPut("Update_Doctor_Status")]
         //[Authorize(Roles = "Manager")]

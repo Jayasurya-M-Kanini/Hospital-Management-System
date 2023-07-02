@@ -12,16 +12,16 @@ namespace HospitalAPI.Services
         private readonly IBaseCRUD<int, User> _userRepo;
         private readonly IBaseCRUD<int, Doctor> _doctorRepo;
         private readonly IBaseCRUD<int, Admin> _adminRepo;
-
-
+        private readonly IBaseCRUD<int, Patient> _patientRepo;
         private readonly IGenerateToken _generateToken;
         private readonly IPasswordGenerate _passwordGenerate;
 
-        public ManageAdminService(IBaseCRUD<int, User> userRepo, IBaseCRUD<int, Doctor> doctorRepo,IBaseCRUD<int, Admin> adminRepo, IGenerateToken generateToken,IPasswordGenerate passwordGenerate)
+        public ManageAdminService(IBaseCRUD<int, User> userRepo, IBaseCRUD<int, Doctor> doctorRepo,IBaseCRUD<int, Admin> adminRepo, IBaseCRUD<int, Patient> patientRepo, IGenerateToken generateToken,IPasswordGenerate passwordGenerate)
         {
             _userRepo = userRepo;
             _doctorRepo = doctorRepo;
             _adminRepo = adminRepo;
+            _patientRepo=patientRepo;
             _generateToken = generateToken;
             _passwordGenerate=passwordGenerate;
         }
@@ -200,6 +200,14 @@ namespace HospitalAPI.Services
             return null;
         }
 
-
+        public async Task<ICollection<Patient?>?> ViewAllPatients()
+        {
+            var userData = await _patientRepo.GetAll();
+            if (userData != null)
+            {
+                return userData;
+            }
+            return null;
+        }
     }
 }
