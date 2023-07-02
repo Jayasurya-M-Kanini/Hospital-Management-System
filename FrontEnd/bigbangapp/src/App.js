@@ -7,16 +7,17 @@ import Login from './Components/Login/Login'
 import AccountType from './Components/Register/AccountType';
 import Register from './Components/Register/Register';
 import Navbar from './Components/Navbar/Navbar';
-import SideNav from './Components/SideNav/sideNav';
+import Landing from './Components/Landing/Landing';
 
 
 function App() {
   return (
 <div>
   <BrowserRouter>
-  <SideNav/>
-  {/* <Navbar/> */}
-  {/* <Login/> */}
+    <Landing/>
+  <Navbar/>
+
+  <Login/>
   {/* <AccountType/>  */}
   <routes>
     <route path='/AccountType/' element={<AccountType/>}/>

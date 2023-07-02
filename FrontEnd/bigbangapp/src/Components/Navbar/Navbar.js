@@ -3,70 +3,39 @@ import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 
-function NavBar() {
-    const [click, setClick] = useState(false);
-  
-    const handleClick = () => setClick(!click);
+function NavBar() {  
+    const [navActive, setNavActive] = React.useState(false);
+
+    const toggleNavItems = () => {
+      setNavActive(!navActive);
+    };
+
     return (
-      <>
-        <nav className="navbar">
-          <div className="nav-container">
-            <NavLink exact to="" className="nav-logo">
-              CodeBucks
-              <i className="fas fa-code"></i>
-            </NavLink>
-  
-            <ul className={click ? "nav-menu active" : "nav-menu"}>
-              <li className="nav-item">
-                <NavLink
-                  exact
-                  to=""
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={handleClick}
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  
-                  to=""
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={handleClick}
-                >
-                  About
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to=""
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={handleClick}
-                >
-                  Blog
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  exact
-                  to=""
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={handleClick}
-                >
-                  Contact Us
-                </NavLink>
-              </li>
-            </ul>
-            <div className="nav-icon" onClick={handleClick}>
-              <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
+<div className="nav-main">
+<nav class="navbar-container">
+        <div class="logo-container">
+            <a href="index.html">Healthcare</a>
+        </div>
+
+        <div className="bars" onClick={toggleNavItems}>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <ul className={`nav-items ${navActive ? 'active' : ''}`}>
+            <li class="nav-link"><a href="#">Home</a></li>
+            <li class="nav-link"><a href="#">Service</a></li>
+            <li class="nav-link"><a href="#">Projects</a></li>
+            <li class="nav-link"><a href="#">About</a></li>
+            <div class="login-register">
+                <a href="#" class="button">Login</a>
+                <a href="#" class="button">Sign in</a>
             </div>
-          </div>
-        </nav>
-      </>
+        </ul>
+    </nav>
+</div>
+
     );
   }
 
