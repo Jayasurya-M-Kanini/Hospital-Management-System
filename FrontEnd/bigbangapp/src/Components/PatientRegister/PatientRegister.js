@@ -1,10 +1,51 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./PatientRegister.css"
 import login from "../images/Person with a cold-pana.png";
 import NavBar from "../Navbar/Navbar";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 function PatientRegister() {
+  var [patient, setPatient] = useState(
+    {
+      "user": {
+      },
+      "name": "",
+      "dateOfBirth": "",
+      "phoneNumber": "",
+      "emailId": "",
+      "address": "",
+      "gender": "",
+      "bloodType": "",
+      "passwordClear": ""
+    }
+  );
+
+  const navigate=useNavigate();
+
+  var register = () => {
+    console.log(patient);
+    fetch("https://localhost:7235/api/Patient/Patient_Registration", {
+      method: "POST",
+      headers: {
+        accept: "text/plain",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({...patient,"patient":{} })
+    })
+      .then(async (data) => {
+        var myData = await data.json();
+        console.log(myData);
+        localStorage.setItem('id', myData.userId);
+        alert("Registeerd Successfully");
+        navigate("/PatientProfile");
+      })
+      .catch((err) => {
+        console.log(err.error);
+      });
+  };
+
   return (
     <div>
 <div className="container">
@@ -22,6 +63,13 @@ function PatientRegister() {
                   type="text"
                   placeholder="User Name"
                   required
+                  onChange={(event) => {
+                    setPatient({
+                      ...patient,
+                      name: event.target.value,
+                    });
+                  }}
+
                 />
                 </div>
               <div class="input-group">
@@ -32,6 +80,13 @@ function PatientRegister() {
                   type="date"
                   placeholder="Date Of Birth"
                   required
+                  onChange={(event) => {
+                    setPatient({
+                      ...patient,
+                      dateOfBirth: event.target.value,
+                    });
+                  }}
+
                 />
               </div>
               <div class="input-group">
@@ -42,6 +97,13 @@ function PatientRegister() {
                   type="phone"
                   placeholder="Phone Number"
                   required
+                  onChange={(event) => {
+                    setPatient({
+                      ...patient,
+                      phoneNumber: event.target.value,
+                    });
+                  }}
+
                 />
               </div>
               <div class="input-group">
@@ -52,6 +114,12 @@ function PatientRegister() {
                   type="text"
                   placeholder="Gender"
                   required
+                  onChange={(event) => {
+                    setPatient({
+                      ...patient,
+                      gender: event.target.value,
+                    });
+                  }}
                 />
               </div>
                 </div>
@@ -64,6 +132,13 @@ function PatientRegister() {
                   type="text"
                   placeholder="Blood Group"
                   required
+                  onChange={(event) => {
+                    setPatient({
+                      ...patient,
+                      bloodGroup: event.target.value,
+                    });
+                  }}
+
                 />
               </div>
               <div class="input-group">
@@ -74,6 +149,13 @@ function PatientRegister() {
                   type="email"
                   placeholder="Email ID"
                   required
+                  onChange={(event) => {
+                    setPatient({
+                      ...patient,
+                      emailId: event.target.value,
+                    });
+                  }}
+
                 />
               </div>
               <div class="input-group">
@@ -84,11 +166,33 @@ function PatientRegister() {
                   type="text"
                   placeholder="Address"
                   required
+                  onChange={(event) => {
+                    setPatient({
+                      ...patient,
+                      address: event.target.value,
+                    });
+                  }}
+                />
+              </div>
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  name="pwd"
+                  id="pwd"
+                  type="text"
+                  placeholder="Password"
+                  required
+                  onChange={(event) => {
+                    setPatient({
+                      ...patient,
+                      passwordClear: event.target.value,
+                    });
+                  }}
                 />
               </div>
                 </div>
             </div>
-              <button id="login-btn">Register</button>
+              <button id="login-btn" onClick={register}>Register</button>
           </div>
           </div>
         </div>
