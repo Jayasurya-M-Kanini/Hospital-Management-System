@@ -8,16 +8,32 @@ import AccountType from './Components/Register/AccountType';
 import Register from './Components/Register/Register';
 import Navbar from './Components/Navbar/Navbar';
 import Landing from './Components/Landing/Landing';
-
+import AdminRegister from './Components/AdminRegister/AdminRegister';
+import PatientRegister from './Components/PatientRegister/PatientRegister';
+import DoctorRegister from './Components/DoctorRegister/DoctorRegister';
+import AdminNavbar from './Components/AdminNavbar/AdminNavbar';
+import DoctorNavBar from './Components/DoctorNavbar/DoctorNavbar';
+import PatientNavBar from './Components/PatientNavbar/PatientNavbar';
+import AdminProfile from './Components/AdminProfile/AdminProfile';
+import DoctorProfile from './Components/DoctorProfile/DoctorProfile';
+import PatientProfile from './Components/PatientProfile/PatientProfile';
 
 function App() {
   return (
 <div>
   <BrowserRouter>
-    <Landing/>
-  <Navbar/>
-
-  <Login/>
+  {/* <AdminProfile/> */}
+    {/* <Landing/> */}
+    {/* <AdminNavbar/> */}
+    {/* <DoctorProfile/> */}
+    <PatientProfile/>
+    <DoctorNavBar/>
+    {/* <PatientNavBar/> */}
+  {/* <Navbar/> */}
+  {/* <DoctorRegister/> */}
+  {/* <PatientRegister/> */}
+  {/* <AdminRegister/> */}
+  {/* <Login/> */}
   {/* <AccountType/>  */}
   <routes>
     <route path='/AccountType/' element={<AccountType/>}/>

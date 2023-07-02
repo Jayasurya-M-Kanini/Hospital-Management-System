@@ -1,7 +1,7 @@
 import React from "react";
 import './Login.css';
 import '../images/login-1.jpg';
-import login from '../images/Pediatrician-pana.png';
+import login from '../images/Pediatrician-pana.png'
 import { Link } from "react-router-dom";
 
 function Login(){
@@ -17,7 +17,6 @@ function Login(){
           <div class="wrapper">
             <div class="inner-warpper text-center">
               <h2 class="title">Login to your account</h2>
-              <form action="" id="formvalidate">
                 <div class="input-group">
         
                   <input
@@ -26,7 +25,7 @@ function Login(){
                     id="userName"
                     type="text"
                     placeholder="User Name"
-                    // required
+                    required
                   />
                   <span class="lighting"></span>
                 </div>
@@ -38,7 +37,7 @@ function Login(){
                     id="userPassword"
                     type="password"
                     placeholder="Password"
-                    // required
+                    required
                   />
                 </div>
 
@@ -54,7 +53,6 @@ function Login(){
                   Forgot Password?
                   </Link>
                 </div>
-              </form>
             </div>
             <div class="signup-wrapper text-center">
               <Link className="toRegister" to='/AccountType/'>
