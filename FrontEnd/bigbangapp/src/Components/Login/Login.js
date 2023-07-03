@@ -1,30 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import './Login.css';
 import '../images/login-1.jpg';
 import loginimg from '../images/Pediatrician-pana.png'
 import { Link } from "react-router-dom";
 import NavBar from "../Navbar/Navbar";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-function Login(){
+function Login() {
   const navigate = useNavigate();
-  var [Login, setLogin] = useState({
+  const [loginData, setLoginData] = useState({
     "userId": 0,
-    "password":"",
-    "role":"",
-    "token":"",
+    "password": "",
+    "role": "",
+    "token": "",
     "status": ""
   });
-  var login = () => {
+
+  const login = () => {
+    // Check if all fields are filled
+    // for (const field in loginData) {
+    //   if (!loginData[field]) {
+    //     alert("Please fill in all the fields");
+    //     return;
+    //   }
+    // }
+
     fetch("https://localhost:7235/api/User/Login", {
       method: "POST",
       headers: {
         accept: "text/plain",
         "Content-Type": "application/json",
       },
-      "body": JSON.stringify({ ...Login,"Login":{}}),
+      body: JSON.stringify({ ...loginData, "Login": {} }),
     })
       .then(async (data) => {
         var myData = await data.json();
@@ -36,10 +43,10 @@ function Login(){
         } else if (myData.role === "Admin") {
           console.log(myData);
           navigate("/AdminProfile");
-        } else if (myData.role === "Doctor" && myData.token==null) {
+        } else if (myData.role === "Doctor" && myData.token == null) {
           console.log(myData);
           navigate("/UnApproveProfile");
-        } else {
+        } else if (myData.role === "Doctor" && myData.token != null) {
           console.log(myData);
           navigate("/DoctorProfile");
         }
@@ -49,83 +56,78 @@ function Login(){
       });
   };
 
-    return (
-      <div>
-<div className="container">
+  return (
+    <div>
+      <div className="container">
         <div className="image-column">
           <img src={loginimg} alt="Login" className="login-image" />
         </div>
         <div className="form-column">
-          <div class="logo text-center">
+          <div className="logo text-center">
             {/* <h1>Company Name</h1> */}
           </div>
-          <div class="wrapper">
-            <div class="inner-warpper text-center">
-              <h2 class="title">Login to your account</h2>
-                <div class="input-group">
-        
-                  <input
-                    class="form-control"
-                    name="userName"
-                    id="userName"
-                    type="text"
-                    placeholder="User ID"
-                    required
-                    onChange={(event) => {
-                      setLogin({
-                        ...Login,
-                        userId: event.target.value,
-                      });
-                    }}
+          <div className="wrapper">
+            <div className="inner-warpper text-center">
+              <h2 className="title">Login to your account</h2>
+              <div className="input-group">
+                <input
+                  className="form-control"
+                  name="userName"
+                  id="userName"
+                  type="text"
+                  placeholder="User ID"
+                  required
+                  onChange={(event) => {
+                    setLoginData({
+                      ...loginData,
+                      userId: event.target.value,
+                    });
+                  }}
+                />
+                <span className="lighting"></span>
+              </div>
+              <div className="input-group">
+                <input
+                  className="form-control"
+                  name="userPassword"
+                  id="userPassword"
+                  type="password"
+                  placeholder="Password"
+                  required
+                  onChange={(event) => {
+                    setLoginData({
+                      ...loginData,
+                      password: event.target.value,
+                    });
+                  }}
+                />
+              </div>
 
-                  />
-                  <span class="lighting"></span>
+              <button id="login-btn" onClick={login} >
+                Login
+              </button>
+              <div className="clearfix supporter">
+                <div className="pull-left remember-me">
+                  <input id="rememberMe" type="checkbox" />
+                  <label htmlFor="rememberMe">Remember Me</label>
                 </div>
-                <div class="input-group">
-            
-                  <input
-                    class="form-control"
-                    name="userPassword"
-                    id="userPassword"
-                    type="password"
-                    placeholder="Password"
-                    required
-                    onChange={(event) => {
-                      setLogin({
-                        ...Login,
-                        password: event.target.value,
-                      });
-                    }}
-                  />
-                </div>
-
-                <button id="login-btn"  onClick={login}
->
-                  Login
-                </button>
-                <div class="clearfix supporter">
-                  <div class="pull-left remember-me">
-                    <input id="rememberMe" type="checkbox" />
-                    <label for="rememberMe">Remember Me</label>
-                  </div>
-                  <Link class="forgot pull-right" to=''>
+                <Link className="forgot pull-right" to=''>
                   Forgot Password?
-                  </Link>
-                </div>
+                </Link>
+              </div>
             </div>
-            <div class="signup-wrapper text-center">
+            <div className="signup-wrapper text-center">
               <Link className="toRegister" to='/AccountType/'>
-                Don't have an accout?{" "}
-                <span class="text-primary">Create One</span>
+                Don't have an account?{" "}
+                <span className="text-primary">Create One</span>
               </Link>
             </div>
           </div>
         </div>
       </div>
-      <NavBar/>
-      </div>
-      
-    );  
+      <NavBar />
+    </div>
+  );
 }
 
 export default Login;

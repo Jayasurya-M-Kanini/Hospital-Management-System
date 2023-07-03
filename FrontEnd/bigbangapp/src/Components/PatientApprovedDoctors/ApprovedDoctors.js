@@ -33,6 +33,7 @@ function ApprovedDoctors() {
   return (
     <div className="approve-list">
       <div>
+      <h1 className="up-prof-head">Doctors</h1>
       <div className="patient-table">
         <table className="fl-table">
           <thead>

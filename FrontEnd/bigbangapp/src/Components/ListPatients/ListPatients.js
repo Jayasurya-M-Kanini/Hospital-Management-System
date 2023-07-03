@@ -30,8 +30,8 @@ function ListPatients() {
   }, []);
 
   return (
-    <div>
-<h2 className="pat-tbl-head">Responsive Table</h2>
+    <div className="patients-table-container">
+<h2 className="pat-tbl-head">Patients</h2>
   <div class="patient-table">
       <table class="fl-table">
           <thead>

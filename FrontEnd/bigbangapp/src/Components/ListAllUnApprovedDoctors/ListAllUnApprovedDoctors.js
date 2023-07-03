@@ -94,7 +94,7 @@ function ListAllUnApprovedDoctors() {
     <div className="unapprove-list">
         <Tab/>
         <div>
-      <h2 className="pat-tbl-head">Responsive Table</h2>
+      <h2 className="pat-tbl-head">Pending Requests</h2>
       <div className="patient-table">
         <table className="fl-table">
           <thead>

@@ -27,7 +27,7 @@ function AdminProfile(){
       })
     },[]);
 return(
-<div>
+<div className="doc-prof-container">
 <div class="center">
 <div class="card">
   <div class="additional">

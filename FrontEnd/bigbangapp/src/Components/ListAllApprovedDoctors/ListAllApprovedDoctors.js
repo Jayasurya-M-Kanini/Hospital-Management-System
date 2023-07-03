@@ -92,7 +92,7 @@ function ListAllApprovedDoctors() {
     <div className="approve-list">
       <Tab/>
       <div>
-      <h2 className="pat-tbl-head">Responsive Table</h2>
+      <h2 className="pat-tbl-head">Doctors</h2>
       <div className="patient-table">
         <table className="fl-table">
           <thead>
