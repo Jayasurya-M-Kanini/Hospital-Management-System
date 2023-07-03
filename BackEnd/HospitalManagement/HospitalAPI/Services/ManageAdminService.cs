@@ -101,7 +101,7 @@ namespace HospitalAPI.Services
             var users = await _doctorRepo.GetAll();
             if (users != null)
             {
-                var doctors = users.Where(i => i.Name.ToUpper().Contains(name.ToUpper())).ToList();
+                var doctors = users.Where(i => i.Name.ToUpper().Contains(name.ToUpper()) && i.Status=="Approved").ToList();
                 if (doctors.Count > 0)
                 {
                     return doctors;

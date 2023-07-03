@@ -57,6 +57,9 @@
   /* Responsive */
   
   @media (max-width: 767px) {
+    .col{
+       visibility: hidden;
+    }
     .fl-table {
         display: block;
         width: 100%;

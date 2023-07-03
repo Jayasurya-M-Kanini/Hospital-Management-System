@@ -83,7 +83,7 @@ namespace HospitalAPI.Controllers
         [HttpGet("View_All_Doctors")]
         [ProducesResponseType(typeof(ActionResult<ICollection<Doctor>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Doctor>>> ViewAllDoctors()
         {
             try
@@ -113,7 +113,7 @@ namespace HospitalAPI.Controllers
         [HttpGet("View_All_UnApproved_Doctors")]
         [ProducesResponseType(typeof(ActionResult<ICollection<Doctor>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Doctor>>> ViewAllUnApprovedDoctors()
         {
             try
@@ -143,7 +143,7 @@ namespace HospitalAPI.Controllers
         [HttpGet("View_All_Patients")]
         [ProducesResponseType(typeof(ActionResult<ICollection<Patient>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Patient>>> ViewAllPatients()
         {
             try
@@ -171,7 +171,7 @@ namespace HospitalAPI.Controllers
 
 
         [HttpPut("Update_Doctor_Status")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(ActionResult<StatusDTO>), StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<StatusDTO>> UpdateUserStatus(StatusDTO userApproval)
@@ -262,7 +262,7 @@ namespace HospitalAPI.Controllers
         [HttpDelete("Delete_Doctor")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<ActionResult<Doctor>> DeleteDoctor(int key)
         {
             try

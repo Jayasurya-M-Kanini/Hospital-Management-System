@@ -30,6 +30,7 @@ import PatientApprovedDoctorsProtected from "./Protected/PatientApprovedDoctorsP
 import PatientProfileProtected from "./Protected/PatientProfileProtected";
 import UpdateDoctorProtected from "./Protected/UpdateDoctorProtected";
 import UpdatePatientProtected from "./Protected/UpdatePatientProtected";
+import Search from "./Components/SearchBar/Search";
 
 function App() {
   var token;
@@ -37,8 +38,9 @@ function App() {
     <div>
       <ToastContainer />
       <BrowserRouter>
+      <Search/>
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} />
           <Route path="Login" element={<Login />} />
           <Route path="/AccountType/" element={<AccountType />} />
           <Route path="/DoctorRegister" element={<DoctorRegister />} />
@@ -126,7 +128,7 @@ function App() {
                 <ApprovedDoctors />
               </PatientApprovedDoctorsProtected>
             }
-          />
+          /> */}
         </Routes>
       </BrowserRouter>
     </div>
