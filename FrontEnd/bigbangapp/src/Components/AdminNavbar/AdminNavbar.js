@@ -33,8 +33,8 @@ function AdminNavBar() {
 
         <ul className={`nav-items ${navActive ? 'active' : ''}`}>
             <li class="nav-link"><Link to='/AdminProfile'>Profile</Link></li>
-            <li class="nav-link"><Link href="#">Patients</Link></li>
-            <li class="nav-link"><Link href="#">Doctors</Link></li>
+            <li class="nav-link"><Link to='/ListPatients'>Patients</Link></li>
+            <li class="nav-link"><Link to='/AdminDoctorsTab'>Doctors</Link></li>
             <li class="nav-link"><Link to='/AdminRegister'>Add Admin</Link></li>
             <div class="login-register" onClick={logout}>
                 <a href="#" class="button"><FaSignOutAlt className="navbar-icon"/>&nbsp;&nbsp;LogOut</a>

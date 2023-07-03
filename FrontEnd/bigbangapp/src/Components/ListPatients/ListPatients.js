@@ -1,67 +1,68 @@
-import React from "react"
-import './ListEmployees.css'
-import ManagerBoard from "./ManagerBoard";
-import {useState,useEffect} from "react";
-import ChangeStatus from "./ChangeStatus";
+import React from "react";
+import "./ListPatients.css";
+import { useState, useEffect } from "react";
+import AdminNavBar from "../AdminNavbar/AdminNavbar";
 
-function ListPatients(){
-    const[patients,setPatients]=useState([]);
+function ListPatients() {
+  const [patients, setPatients] = useState([]);
 
-    const viewPatients=()=>{
-        fetch("",{
-            "method":"GET",
-            headers:{
-                "accept":"text/plain",
-                "Content-Type":"application/json",
-            },
-            "body":JSON.stringify({...profile,"profile":{} })
-        })
-        .then(async (data)=>{
-            if(data.status >= 200 && data.status<=300){
-                var myData = await data.json();
-                console.log(myData);
-                setUsers(myData);
-            }
-        })
-        .catch((err)=>{
-            console.log(err.error)
-        })
-    };
+  const viewPatients = () => {
+    fetch("https://localhost:7235/api/Admin/View_All_Patients", {
+      method: "GET",
+      headers: {
+        accept: "text/plain",
+      },
+    })
+      .then(async (data) => {
+        if (data.status >= 200 && data.status <= 300) {
+          var myData = await data.json();
+          console.log(myData);
+          setPatients(myData);
+        }
+      })
+      .catch((err) => {
+        console.log(err.error);
+      });
+  };
 
-    useEffect(() => {
-        viewPatients();
-      }, []);
+  useEffect(() => {
+    viewPatients();
+  }, []);
 
-return(
+  return (
     <div>
-        <h1 className="list-head">Employee Details</h1>
-    <main>
-    <table>
-            <tr>
-            <th>UserId</th>
+<h2 className="pat-tbl-head">Responsive Table</h2>
+  <div class="patient-table">
+      <table class="fl-table">
+          <thead>
+          <tr>
+          <th>PatientId</th>
             <th>Name</th>
             <th>D.O.B</th>
             <th>Gender</th>
             <th>Phone</th>
             <th>Email</th>
-            <th>Status</th>
-            </tr>
-            { users.filter((d)=>d.user .status !="Quit")
-            .map((user) => (
-                    <tr>
-                            <td>{user.id}</td>
+            <th>Blood Group</th>
+          </tr>
+          </thead>
+          <tbody>
+          { patients.map((user) => (
+            <tr>
+                            <td>{user.patientId}</td>
                             <td>{user.name}</td> 
                             <td>{user.dateOfBirth}</td>
                             <td>{user.gender}</td>
-                            <td>{user.phone}</td>
-                            <td>{user.email}</td>
-                            <td>{user.user.status}</td>
-                    </tr>
-            ))}    
-    </table>
-    </main>
+                            <td>{user.phoneNumber}</td>
+                            <td>{user.emailId}</td>
+                            <td>{user.bloodType}</td> 
+                               </tr>             
+            ))} 
+          </tbody>
+      </table>
     </div>
-)
+  <AdminNavBar />
+</div>
+  );
 }
 
 export default ListPatients;

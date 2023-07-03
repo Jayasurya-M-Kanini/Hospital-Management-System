@@ -22,6 +22,11 @@ import UpdatePatient from './Components/UpdatePatientProfile/UpdatePatient';
 import UnApproveNavbar from './Components/UnApprovedDoctor/UnApproveNavbar';
 import UnApproveProfile from './Components/UnApprovedDoctor/UnApproveProfile';
 import Home from './Components/Home/Home';
+import ListPatients from './Components/ListPatients/ListPatients';
+import ListAllApprovedDoctors from './Components/ListAllApprovedDoctors/ListAllApprovedDoctors';
+import ListAllUnApprovedDoctors from './Components/ListAllUnApprovedDoctors/ListAllUnApprovedDoctors';
+import AdminDoctorsTab from './Components/AdminDoctorsTab/AdminDoctorsTab';
+import ApprovedDoctors from './Components/PatientApprovedDoctors/ApprovedDoctors';
 
 function App() {
   return (
@@ -40,6 +45,11 @@ function App() {
       <Route path='/DoctorProfile' element={<DoctorProfile/>}/>
       <Route path='/UpdatePatient' element={<UpdatePatient/>}/>
       <Route path='/UpdateDoctor' element={<UpdateDoctor/>}/>
+      <Route path='/ListPatients' element={<ListPatients/>}/>
+      <Route path='/ListAllUnApprovedDoctors' element={<ListAllUnApprovedDoctors/>}/>
+      <Route path='/ListAllApprovedDoctors' element={<ListAllApprovedDoctors/>}/>
+      <Route path='/AdminDoctorsTab' element={<AdminDoctorsTab/>}/>
+      <Route path='/PatientApprovedDoctors' element={<ApprovedDoctors/>}/>
 
   </Routes>
   </BrowserRouter>

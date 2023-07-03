@@ -95,7 +95,7 @@ return(
 <div>
 <div style={{display:"flex",
 justifyContent:"center"}}>
-            <Link to="/UpdateProfile/">
+            <Link to="/UpdateDoctor">
                 <button className="btn1">Edit Profile</button>
             </Link>
         </div>
