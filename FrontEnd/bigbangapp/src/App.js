@@ -30,17 +30,21 @@ import PatientApprovedDoctorsProtected from "./Protected/PatientApprovedDoctorsP
 import PatientProfileProtected from "./Protected/PatientProfileProtected";
 import UpdateDoctorProtected from "./Protected/UpdateDoctorProtected";
 import UpdatePatientProtected from "./Protected/UpdatePatientProtected";
-import Search from "./Components/SearchBar/Search";
+import Search from "./Components/ApprovedSearchBar/Search";
+import UnApprovedSearch from "./Components/UnApprovedSearchBar/UnApprovedSearch";
+
+
 
 function App() {
   var token;
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer autoClose={1500}/>
       <BrowserRouter>
-      <Search/>
+      {/* <Search/> */}
+      {/* <UnApprovedSearch/> */}
         <Routes>
-          {/* <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="Login" element={<Login />} />
           <Route path="/AccountType/" element={<AccountType />} />
           <Route path="/DoctorRegister" element={<DoctorRegister />} />
@@ -128,7 +132,23 @@ function App() {
                 <ApprovedDoctors />
               </PatientApprovedDoctorsProtected>
             }
-          /> */}
+          />
+          <Route
+            path="/Search"
+            element={
+              // <PatientApprovedDoctorsProtected token={token}>
+                <Search />
+              // </PatientApprovedDoctorsProtected>
+            }
+          />
+                    <Route
+            path="/UnApprovedSearch"
+            element={
+              // <PatientApprovedDoctorsProtected token={token}>
+                <UnApprovedSearch/>
+              // </PatientApprovedDoctorsProtected>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

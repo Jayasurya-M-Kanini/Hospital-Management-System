@@ -110,6 +110,20 @@ namespace HospitalAPI.Services
             return null;
         }
 
+        public async Task<ICollection<Doctor>?> SearchByNameForUnApproved(string name)
+        {
+            var users = await _doctorRepo.GetAll();
+            if (users != null)
+            {
+                var doctors = users.Where(i => i.Name.ToUpper().Contains(name.ToUpper()) && i.Status == "UnApproved").ToList();
+                if (doctors.Count > 0)
+                {
+                    return doctors;
+                }
+            }
+            return null;
+        }
+
         public async Task<Doctor?> DeleteDoctorById(int key)
         {
             var userData = await _doctorRepo.Delete(key);
@@ -125,7 +139,21 @@ namespace HospitalAPI.Services
             var users = await _doctorRepo.GetAll();
             if (users != null)
             {
-                var doctors = users.Where(i => i.Specialization.ToUpper().Contains(specialization.ToUpper())).ToList();
+                var doctors = users.Where(i => i.Specialization.ToUpper().Contains(specialization.ToUpper()) && i.Status == "Approved").ToList();
+                if (doctors.Count > 0)
+                {
+                    return doctors;
+                }
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Doctor>?> SearchDoctorBySpecializationForUnApproved(string specialization)
+        {
+            var users = await _doctorRepo.GetAll();
+            if (users != null)
+            {
+                var doctors = users.Where(i => i.Specialization.ToUpper().Contains(specialization.ToUpper()) && i.Status == "UnApproved").ToList();
                 if (doctors.Count > 0)
                 {
                     return doctors;

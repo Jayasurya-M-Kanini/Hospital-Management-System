@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import AdminNavBar from "../AdminNavbar/AdminNavbar";
 import "../ListAllApprovedDoctors/ListAllApprovedDoctors.css";
-import "./search.css";
+import "../ApprovedSearchBar/search.css";
 import { toast } from "react-toastify";
+import './search.css'
+import Tab from "../Tab/Tab";
+
 
 function Search() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -11,36 +14,70 @@ function Search() {
     const handleChange = (event) => {
       setSearchQuery(event.target.value);
     };
-  
+
     const handleSearch = async () => {
       if (searchQuery === "") {
         viewPatients();
       } else {
         try {
-          const response = await fetch(
+          const responseByName = await fetch(
             `https://localhost:7235/api/Admin/Search_By_Name?name=${searchQuery}`,
             {
               method: "GET",
               headers: {
                 accept: "text/plain",
-                // 'Authorization': 'Bearer ' + localStorage.getItem('token')
               },
             }
           );
-          if (response.ok) {
-            const data = await response.json();
-            setData(data);
-            console.log(data);
+    
+          const responseBySpeciality = await fetch(
+            `https://localhost:7235/api/Admin/Search_By_Specialization?name=${searchQuery}`,
+            {
+              method: "GET",
+              headers: {
+                accept: "text/plain",
+              },
+            }
+          );
+    
+          if (responseByName.ok && responseBySpeciality.ok) {
+            const dataByName = await responseByName.json();
+            const dataBySpeciality = await responseBySpeciality.json();
+            const combinedData = [...dataByName, ...dataBySpeciality];
+    
+            // Filter out duplicate entries by doctor's name
+            const uniqueData = combinedData.reduce((acc, current) => {
+              const existingEntry = acc.find(
+                (entry) => entry.name === current.name
+              );
+              if (!existingEntry) {
+                acc.push(current);
+              }
+              return acc;
+            }, []);
+    
+            setData(uniqueData);
+            console.log(uniqueData);
+          } else if (responseByName.ok) {
+            const dataByName = await responseByName.json();
+            setData(dataByName);
+            console.log(dataByName);
+          } else if (responseBySpeciality.ok) {
+            const dataBySpeciality = await responseBySpeciality.json();
+            setData(dataBySpeciality);
+            console.log(dataBySpeciality);
           } else {
-            toast.error("No doctors matches your search..")
-            console.error("Failed to get doctor by name");
+            setData([]);
+            toast.error("No doctors match your search.");
+            console.error("Failed to get doctors by name or specialization");
           }
         } catch (error) {
           console.error(error);
         }
       }
     };
-  
+    
+
     const viewPatients = async () => {
       try {
         const response = await fetch(
@@ -84,6 +121,7 @@ function Search() {
       console.log(statusDTO);
       await unApproveDoctor(statusDTO);
       await viewPatients();
+      setSearchQuery(""); // Reset the search query
     };
   
     const unApproveDoctor = async (statusDTO) => {
@@ -103,7 +141,9 @@ function Search() {
         if (response.ok) {
           const data = await response.json();
           console.log(data);
+          toast.success("Doctor Unapproved successfully..")
         } else {
+          toast.error("Failed to Unapprove doctor..")
           console.error('Failed to Unapprove doctor');
         }
       } catch (error) {
@@ -127,17 +167,27 @@ function Search() {
           // Doctor deleted successfully
           const data = await response.json();
           console.log(data);
+          toast.success("Doctor deleted successfully..")
           await viewPatients();
+          setSearchQuery(""); // Reset the search query
         } else {
+          console.error('Failed to delete doctor');
           console.error('Failed to delete doctor');
         }
       } catch (error) {
         console.error(error);
       }
     };
+
   return (
-    <div className="search-container">
-      <div className="search-bar">
+<div className="search-container">
+  {/* <h2 className="pat-tbl-head">Doctors</h2> */}
+<div>
+    <Tab/>
+</div>
+    <div className="search-table">
+      <div >
+        <div className="search-bar">
         <input
           type="text"
           placeholder="Search..."
@@ -145,10 +195,10 @@ function Search() {
           value={searchQuery}
           onChange={handleChange}
         />
+        </div>
       </div>
 
       <div>
-        <h2 className="pat-tbl-head">Doctors</h2>
         <div className="patient-table">
           <table className="fl-table">
             <thead>
@@ -194,7 +244,8 @@ function Search() {
           </table>
         </div>
       </div>
-      <AdminNavBar />
+      </div>
+      <AdminNavBar/>
     </div>
   );
 }

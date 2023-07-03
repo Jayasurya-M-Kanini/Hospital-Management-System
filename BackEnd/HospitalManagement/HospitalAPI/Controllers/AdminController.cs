@@ -229,6 +229,37 @@ namespace HospitalAPI.Controllers
             }
         }
 
+
+        [HttpGet("Search_By_Name_UnApproved")]
+        [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[Authorize]
+        public async Task<ActionResult<ICollection<Doctor>>> SearchByNameUnApproved(string name)
+        {
+            try
+            {
+                var user = await _admin.SearchByNameForUnApproved(name);
+                if (user == null)
+                {
+                    return BadRequest(new Error(1, "No Doctors available"));
+                }
+                return Ok(user);
+            }
+
+            //catch (InvalidArgumentNullException iane)
+            //{
+            //    return BadRequest(new Error(2, iane.Message));
+            //}
+            //catch (InvalidNullReferenceException inre)
+            //{
+            //    return BadRequest(new Error(3, inre.Message));
+            //}
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("Search_By_Specialization")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -238,6 +269,36 @@ namespace HospitalAPI.Controllers
             try
             {
                 var user = await _admin.SearchDoctorBySpecialization(name);
+                if (user == null)
+                {
+                    return BadRequest("Unable to get the doctor.");
+                }
+                return Ok(user);
+            }
+
+            //catch (InvalidArgumentNullException iane)
+            //{
+            //    return BadRequest(new Error(2, iane.Message));
+            //}
+            //catch (InvalidNullReferenceException inre)
+            //{
+            //    return BadRequest(new Error(3, inre.Message));
+            //}
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("Search_By_Specialization_UnApproved")]
+        [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[Authorize]
+        public async Task<ActionResult<ICollection<Doctor>>> SearchBySpecializationUnApproved(string name)
+        {
+            try
+            {
+                var user = await _admin.SearchDoctorBySpecializationForUnApproved(name);
                 if (user == null)
                 {
                     return BadRequest("Unable to get the doctor.");
