@@ -11,6 +11,7 @@ function ListAllApprovedDoctors() {
       method: "GET",
       headers: {
         accept: "text/plain",
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
       },
     })
       .then(async (data) => {
@@ -50,6 +51,7 @@ function ListAllApprovedDoctors() {
           headers: {
             accept: "text/plain",
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
         }
       );
@@ -72,6 +74,7 @@ function ListAllApprovedDoctors() {
           method: 'DELETE',
           headers: {
             accept: 'text/plain',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
         }
       );

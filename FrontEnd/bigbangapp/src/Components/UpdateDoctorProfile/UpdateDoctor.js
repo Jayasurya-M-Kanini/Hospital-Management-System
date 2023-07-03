@@ -26,6 +26,7 @@ import DoctorNavBar from "../DoctorNavbar/DoctorNavbar";
           headers:{
               "accept":"text/plain",
               "Content-Type":"application/json",
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
           "body":JSON.stringify({...formData,"formData":{} }
           )

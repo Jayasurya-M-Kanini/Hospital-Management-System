@@ -1,60 +1,135 @@
-import logo from './logo.svg';
-import './App.css';
-import { Route,Routes } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { ReactComponentElement } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Login from './Components/Login/Login'
-import AccountType from './Components/Register/AccountType';
-import Navbar from './Components/Navbar/Navbar';
-import Landing from './Components/Landing/Landing';
-import AdminRegister from './Components/AdminRegister/AdminRegister';
-import PatientRegister from './Components/PatientRegister/PatientRegister';
-import DoctorRegister from './Components/DoctorRegister/DoctorRegister';
-import AdminNavbar from './Components/AdminNavbar/AdminNavbar';
-import DoctorNavBar from './Components/DoctorNavbar/DoctorNavbar';
-import PatientNavBar from './Components/PatientNavbar/PatientNavbar';
-import AdminProfile from './Components/AdminProfile/AdminProfile';
-import DoctorProfile from './Components/DoctorProfile/DoctorProfile';
-import PatientProfile from './Components/PatientProfile/PatientProfile';
-import UpdateDoctor from './Components/UpdateDoctorProfile/UpdateDoctor';
-import UpdatePatient from './Components/UpdatePatientProfile/UpdatePatient';
-import UnApproveNavbar from './Components/UnApprovedDoctor/UnApproveNavbar';
-import UnApproveProfile from './Components/UnApprovedDoctor/UnApproveProfile';
-import Home from './Components/Home/Home';
-import ListPatients from './Components/ListPatients/ListPatients';
-import ListAllApprovedDoctors from './Components/ListAllApprovedDoctors/ListAllApprovedDoctors';
-import ListAllUnApprovedDoctors from './Components/ListAllUnApprovedDoctors/ListAllUnApprovedDoctors';
-import AdminDoctorsTab from './Components/AdminDoctorsTab/AdminDoctorsTab';
-import ApprovedDoctors from './Components/PatientApprovedDoctors/ApprovedDoctors';
+import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import Login from "./Components/Login/Login";
+import AccountType from "./Components/Register/AccountType";
+import AdminRegister from "./Components/AdminRegister/AdminRegister";
+import PatientRegister from "./Components/PatientRegister/PatientRegister";
+import DoctorRegister from "./Components/DoctorRegister/DoctorRegister";
+import AdminProfile from "./Components/AdminProfile/AdminProfile";
+import DoctorProfile from "./Components/DoctorProfile/DoctorProfile";
+import PatientProfile from "./Components/PatientProfile/PatientProfile";
+import UpdateDoctor from "./Components/UpdateDoctorProfile/UpdateDoctor";
+import UpdatePatient from "./Components/UpdatePatientProfile/UpdatePatient";
+import UnApproveProfile from "./Components/UnApprovedDoctor/UnApproveProfile";
+import Home from "./Components/Home/Home";
+import ListPatients from "./Components/ListPatients/ListPatients";
+import ListAllApprovedDoctors from "./Components/ListAllApprovedDoctors/ListAllApprovedDoctors";
+import ListAllUnApprovedDoctors from "./Components/ListAllUnApprovedDoctors/ListAllUnApprovedDoctors";
+import AdminDoctorsTab from "./Components/AdminDoctorsTab/AdminDoctorsTab";
+import ApprovedDoctors from "./Components/PatientApprovedDoctors/ApprovedDoctors";
+import AdminDoctorsTabProtected from "./Protected/AdminDoctorsTabProtected";
+import AdminProfileProtected from "./Protected/AdminProfileProtected";
+import DoctorProfileProtected from "./Protected/DoctorProfileProtected";
+import ListAllApprovedDoctorsProtected from "./Protected/ListAllApprovedDoctorsProtected";
+import ListAllUnApprovedDoctorsProtected from "./Protected/ListAllUnApprovedDoctorsProtected";
+import ListPatientsProtected from "./Protected/ListPatientsProtected";
+import PatientApprovedDoctorsProtected from "./Protected/PatientApprovedDoctorsProtected";
+import PatientProfileProtected from "./Protected/PatientProfileProtected";
+import UpdateDoctorProtected from "./Protected/UpdateDoctorProtected";
+import UpdatePatientProtected from "./Protected/UpdatePatientProtected";
 
 function App() {
+  var token;
   return (
-<div>
-  <BrowserRouter>
-  <Routes>
-      <Route path='/' element={<Home/>}/> 
-      <Route path='Login' element={<Login/>}/> 
-      <Route path='/AccountType/' element={<AccountType/>}/>
-      <Route path='/DoctorRegister' element={<DoctorRegister/>}/>
-      <Route path='/PatientRegister' element={<PatientRegister/>}/>
-      <Route path='/AdminRegister' element={<AdminRegister/>}/>
-      <Route path='/AdminProfile' element={<AdminProfile/>}/>
-      <Route path='/UnApproveProfile' element={<UnApproveProfile/>}/>
-      <Route path='/PatientProfile' element={<PatientProfile/>}/>
-      <Route path='/DoctorProfile' element={<DoctorProfile/>}/>
-      <Route path='/UpdatePatient' element={<UpdatePatient/>}/>
-      <Route path='/UpdateDoctor' element={<UpdateDoctor/>}/>
-      <Route path='/ListPatients' element={<ListPatients/>}/>
-      <Route path='/ListAllUnApprovedDoctors' element={<ListAllUnApprovedDoctors/>}/>
-      <Route path='/ListAllApprovedDoctors' element={<ListAllApprovedDoctors/>}/>
-      <Route path='/AdminDoctorsTab' element={<AdminDoctorsTab/>}/>
-      <Route path='/PatientApprovedDoctors' element={<ApprovedDoctors/>}/>
+    <div>
+      <ToastContainer />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="Login" element={<Login />} />
+          <Route path="/AccountType/" element={<AccountType />} />
+          <Route path="/DoctorRegister" element={<DoctorRegister />} />
+          <Route path="/PatientRegister" element={<PatientRegister />} />
+          <Route path="/AdminRegister" element={<AdminRegister />} />
+          <Route path="/UnApproveProfile" element={<UnApproveProfile />} />
 
-  </Routes>
-  </BrowserRouter>
+          <Route
+            path="/AdminProfile"
+            element={
+              <AdminProfileProtected token={token}>
+                <AdminProfile />
+              </AdminProfileProtected>
+            }
+          />
 
-</div>
+          <Route
+            path="/PatientProfile"
+            element={
+              <PatientProfileProtected token={token}>
+                <PatientProfile />
+              </PatientProfileProtected>
+            }
+          />
+          <Route
+            path="/DoctorProfile"
+            element={
+              <DoctorProfileProtected token={token}>
+                <DoctorProfile />
+              </DoctorProfileProtected>
+            }
+          />
+          <Route
+            path="/UpdatePatient"
+            element={
+              <UpdatePatientProtected token={token}>
+                <UpdatePatient />
+              </UpdatePatientProtected>
+            }
+          />
+          <Route
+            path="/UpdateDoctor"
+            element={
+              <UpdateDoctorProtected token={token}>
+                <UpdateDoctor />
+              </UpdateDoctorProtected>
+            }
+          />
+          <Route
+            path="/ListPatients"
+            element={
+              <ListPatientsProtected token={token}>
+                <ListPatients />
+              </ListPatientsProtected>
+            }
+          />
+          <Route
+            path="/ListAllUnApprovedDoctors"
+            element={
+              <ListAllUnApprovedDoctorsProtected token={token}>
+                <ListAllUnApprovedDoctors />
+              </ListAllUnApprovedDoctorsProtected>
+            }
+          />
+          <Route
+            path="/ListAllApprovedDoctors"
+            element={
+              <ListAllApprovedDoctorsProtected token={token}>
+                <ListAllApprovedDoctors />
+              </ListAllApprovedDoctorsProtected>
+            }
+          />
+          <Route
+            path="/AdminDoctorsTab"
+            element={
+              <AdminDoctorsTabProtected token={token}>
+                <AdminDoctorsTab />
+              </AdminDoctorsTabProtected>
+            }
+          />
+          <Route
+            path="/PatientApprovedDoctors"
+            element={
+              <PatientApprovedDoctorsProtected token={token}>
+                <ApprovedDoctors />
+              </PatientApprovedDoctorsProtected>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

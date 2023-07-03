@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import './Login.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import '../images/login-1.jpg';
 import loginimg from '../images/Pediatrician-pana.png'
 import { Link } from "react-router-dom";
@@ -40,18 +42,23 @@ function Login() {
         if (myData.role === "Patient") {
           console.log(myData);
           navigate("/PatientProfile");
+          toast.success("successful");
         } else if (myData.role === "Admin") {
           console.log(myData);
           navigate("/AdminProfile");
+          toast.success("successful");
         } else if (myData.role === "Doctor" && myData.token == null) {
           console.log(myData);
           navigate("/UnApproveProfile");
+          toast.warning("Oops!! It seems you are not yet approved . Try login later !!");
         } else if (myData.role === "Doctor" && myData.token != null) {
           console.log(myData);
           navigate("/DoctorProfile");
+          toast.success("successful");
         }
       })
       .catch((err) => {
+        toast.error("Kindly check your userId and Password!!");
         console.log(err.error);
       });
   };

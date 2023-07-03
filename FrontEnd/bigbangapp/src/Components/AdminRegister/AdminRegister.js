@@ -4,6 +4,9 @@ import "../Login/Login.css";
 import "./AdminRegister.css";
 import login from "../images/Admin-rafiki.png";
 import AdminNavBar from "../AdminNavbar/AdminNavbar";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function AdminRegister() {
   const [admin, setAdmin] = useState({
@@ -18,7 +21,7 @@ function AdminRegister() {
   const register = () => {
     // Check if all fields are filled
     if (!admin.name || !admin.phoneNumber || !admin.emailId) {
-      alert("Please fill in all the fields");
+      toast.warning("Please fill in all the fields");
       return;
     }
 
@@ -28,18 +31,20 @@ function AdminRegister() {
       method: "POST",
       headers: {
         accept: "text/plain",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
       },
       body: JSON.stringify({ ...admin, "admin": {} })
     })
       .then(async (data) => {
         var myData = await data.json();
         console.log(myData);
-        alert("Registered Successfully");
+        toast.success("Registered Successfully");
         alert("User Id: " + myData.userId);
         navigate("/AdminProfile");
       })
       .catch((err) => {
+        toast.error("Error occured, Kindly retry again !!")
         console.log(err.error);
       });
   };

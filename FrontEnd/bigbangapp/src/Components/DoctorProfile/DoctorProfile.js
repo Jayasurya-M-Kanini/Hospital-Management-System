@@ -13,7 +13,8 @@ function DoctorProfile(){
     localStorage.getItem('id'),{
         "method":"GET",
         headers:{
-            "accept":"text/plain"
+            "accept":"text/plain",
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
     })
     .then(async (data)=>{

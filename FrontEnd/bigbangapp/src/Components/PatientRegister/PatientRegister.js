@@ -3,6 +3,8 @@ import "./PatientRegister.css";
 import login from "../images/Person with a cold-pana.png";
 import NavBar from "../Navbar/Navbar";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function PatientRegister() {
   const [patient, setPatient] = useState({
@@ -23,7 +25,7 @@ function PatientRegister() {
     // Check if all fields are filled
     for (const field in patient) {
       if (!patient[field]) {
-        alert("Please fill in all the fields");
+        toast.warning("Please fill in all the fields");
         return;
       }
     }
@@ -33,7 +35,8 @@ function PatientRegister() {
       method: "POST",
       headers: {
         accept: "text/plain",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        // 'Authorization'
       },
       body: JSON.stringify({ ...patient, "patient": {} })
     })
@@ -41,10 +44,11 @@ function PatientRegister() {
         var myData = await data.json();
         console.log(myData);
         localStorage.setItem("id", myData.userId);
-        alert("Registered Successfully");
+        toast.success("Registered Successfully");
         navigate("/PatientProfile");
       })
       .catch((err) => {
+        toast.error("Error occured,Kindly retry again !!")
         console.log(err.error);
       });
   };

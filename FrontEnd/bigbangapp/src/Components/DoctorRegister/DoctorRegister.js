@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "../PatientRegister/PatientRegister.css";
 import login from "../images/Medical prescription-amico.png";
 import NavBar from "../Navbar/Navbar";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DoctorRegister() {
   const [doctor, setDoctor] = useState({
@@ -29,7 +31,7 @@ function DoctorRegister() {
       !doctor.experience ||
       !doctor.passwordClear
     ) {
-      alert("Please fill in all the fields");
+      toast.warning("Please fill in all the fields");
       return;
     }
 
@@ -47,10 +49,11 @@ function DoctorRegister() {
         var myData = await data.json();
         console.log(myData);
         localStorage.setItem("id", myData.userId);
-        alert("Registered Successfully");
+        toast.success("Registered Successfully!!");
         navigate("/UnApproveProfile");
       })
       .catch((err) => {
+        toast.error("Error occured,Kindly retry again !!")
         console.log(err.error);
       });
   };

@@ -11,6 +11,7 @@ function ListPatients() {
       method: "GET",
       headers: {
         accept: "text/plain",
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
       },
     })
       .then(async (data) => {

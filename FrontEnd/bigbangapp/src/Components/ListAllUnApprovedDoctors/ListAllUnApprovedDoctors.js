@@ -13,6 +13,7 @@ function ListAllUnApprovedDoctors() {
       method: "GET",
       headers: {
         accept: "text/plain",
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
       },
     })
       .then(async (data) => {
@@ -52,6 +53,7 @@ function ListAllUnApprovedDoctors() {
           headers: {
             accept: "text/plain",
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
         }
       );
@@ -74,6 +76,7 @@ function ListAllUnApprovedDoctors() {
           method: 'DELETE',
           headers: {
             accept: 'text/plain',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
         }
       );

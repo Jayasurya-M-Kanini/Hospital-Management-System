@@ -32,6 +32,7 @@ namespace HospitalAPI.Services
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(3),
                 SigningCredentials = cred
+
             };
             //Using teh handler to generate the token
             var tokenHandler = new JwtSecurityTokenHandler();

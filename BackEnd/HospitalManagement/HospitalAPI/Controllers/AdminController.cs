@@ -4,6 +4,8 @@ using HospitalAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
+using HospitalAPI.CustomExceptions;
 
 namespace HospitalAPI.Controllers
 {
@@ -31,19 +33,18 @@ namespace HospitalAPI.Controllers
                 var user = await _admin.AdminRegistration(userDTO);
                 if (user == null)
                 {
-                    return BadRequest("Unable to Register. Try again with a different mail.");
+                    return BadRequest(new Error(1, "Unable to Register. Try again with a different mail."));
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -53,7 +54,7 @@ namespace HospitalAPI.Controllers
         [HttpGet("Admin_Profile")]
         [ProducesResponseType(typeof(Admin), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Admin>> AdminProfile(int key)
         {
             try
@@ -61,19 +62,18 @@ namespace HospitalAPI.Controllers
                 var user = await _admin.GetAdminProfile(key);
                 if (user == null)
                 {
-                    return BadRequest("Unable to get the profile.");
+                    return BadRequest(new Error(1, "Unable to get the profile."));
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -83,56 +83,120 @@ namespace HospitalAPI.Controllers
         [HttpGet("View_All_Doctors")]
         [ProducesResponseType(typeof(ActionResult<ICollection<Doctor>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Doctor>>> ViewAllDoctors()
         {
-            var user = await _admin.ViewAllDoctors();
-            if (user == null)
+            try
             {
-                return BadRequest("No Doctors available");
+                var user = await _admin.ViewAllDoctors();
+                if (user == null)
+                {
+                    return BadRequest(new Error(1, "No Doctors available"));
+                }
+                return Ok(user);
             }
-            return Ok(user);
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
         [HttpGet("View_All_UnApproved_Doctors")]
         [ProducesResponseType(typeof(ActionResult<ICollection<Doctor>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Doctor>>> ViewAllUnApprovedDoctors()
         {
-            var user = await _admin.ViewAllUnapprovedDoctors();
-            if (user == null)
+            try
             {
-                return BadRequest("No Doctors available");
+                var user = await _admin.ViewAllUnapprovedDoctors();
+                if (user == null)
+                {
+                    return BadRequest(new Error(1, "No Doctors available"));
+                }
+                return Ok(user);
             }
-            return Ok(user);
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [HttpGet("View_All_Patients")]
         [ProducesResponseType(typeof(ActionResult<ICollection<Patient>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Patient>>> ViewAllPatients()
         {
-            var user = await _admin.ViewAllPatients();
-            if (user == null)
+            try
             {
-                return BadRequest("No Patients available");
+                var user = await _admin.ViewAllPatients();
+                if (user == null)
+                {
+                    return BadRequest(new Error(1, "No Patients available"));
+                }
+                return Ok(user);
             }
-            return Ok(user);
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
         [HttpPut("Update_Doctor_Status")]
-        //[Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(ActionResult<StatusDTO>), StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<StatusDTO>> UpdateUserStatus(StatusDTO userApproval)
         {
-            var result = await _admin.ChangeDoctorStatus(userApproval);
-            if (result != null)
+            try
             {
-                return Ok(result);
+                var result = await _admin.ChangeDoctorStatus(userApproval);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return BadRequest(new Error(1, "Unable to update the Doctors status"));
             }
-            return BadRequest("Unable to update the status");
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("Search_By_Name")]
@@ -146,7 +210,7 @@ namespace HospitalAPI.Controllers
                 var user = await _admin.SearchByName(name);
                 if (user == null)
                 {
-                    return BadRequest("Unable to get the doctor.");
+                    return BadRequest(new Error(1, "No Doctors available"));
                 }
                 return Ok(user);
             }
@@ -198,7 +262,7 @@ namespace HospitalAPI.Controllers
         [HttpDelete("Delete_Doctor")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Doctor>> DeleteDoctor(int key)
         {
             try
@@ -206,19 +270,18 @@ namespace HospitalAPI.Controllers
                 var user = await _admin.DeleteDoctorById(key);
                 if (user == null)
                 {
-                    return BadRequest("Unable to get the doctor.");
+                    return BadRequest(new Error(1, "Unable to get the doctor"));
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);

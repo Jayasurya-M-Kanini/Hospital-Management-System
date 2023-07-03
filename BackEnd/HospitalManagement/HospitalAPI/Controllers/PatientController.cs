@@ -1,9 +1,12 @@
-﻿using HospitalAPI.Interfaces;
+﻿using HospitalAPI.CustomExceptions;
+using HospitalAPI.Interfaces;
 using HospitalAPI.Models;
 using HospitalAPI.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace HospitalAPI.Controllers
 {
@@ -33,19 +36,18 @@ namespace HospitalAPI.Controllers
                 var user = await _patient.PatientRegistration(userDTO);
                 if (user == null)
                 {
-                    return BadRequest("Unable to Register. Try again with a different mail.");
+                    return BadRequest(new Error(1, "Unable to Register. Try again with a different mail."));
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -56,7 +58,7 @@ namespace HospitalAPI.Controllers
         [HttpGet("Patient_Profile")]
         [ProducesResponseType(typeof(Patient), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
+        [Authorize(Roles = "Patient")]
         public async Task<ActionResult<Patient>> PatientProfile(int key)
         {
             try
@@ -64,19 +66,18 @@ namespace HospitalAPI.Controllers
                 var user = await _patient.PatientProfile(key);
                 if (user == null)
                 {
-                    return BadRequest("Unable to get the profile.");
+                    return BadRequest(new Error(1, "Unable to get the profile."));
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -86,7 +87,7 @@ namespace HospitalAPI.Controllers
         [HttpPut("Update_Patient_Profile")]
         [ProducesResponseType(typeof(Patient), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
+        [Authorize(Roles = "Patient")]
         public async Task<ActionResult<PatientUpdateDTO>> UpdatePatientProfile(PatientUpdateDTO patient)
         {
             try
@@ -94,19 +95,18 @@ namespace HospitalAPI.Controllers
                 var user = await _patient.UpdatePatient(patient);
                 if (user == null)
                 {
-                    return BadRequest("Unable to update the profile.");
+                    return BadRequest(new Error(1, "Unable to update the profile."));
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -119,12 +119,27 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ICollection<Doctor>>> ViewAllApprovedDoctors()
         {
-            var user = await _patient.ViewAllApprovedDoctors();
-            if (user == null)
+            try
             {
-                return BadRequest("No Doctors available !!");
+                var user = await _patient.ViewAllApprovedDoctors();
+                if (user == null)
+                {
+                    return BadRequest(new Error(1, "No doctors available ."));
+                }
+                return Ok(user);
             }
-            return Ok(user);
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("Search_By_Name_Patient")]
@@ -138,19 +153,18 @@ namespace HospitalAPI.Controllers
                 var user = await _patient.SearchByNameForPatient(name);
                 if (user == null)
                 {
-                    return BadRequest("Unable to get the doctor.");
+                    return BadRequest(new Error(1, "No doctors available ."));
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -168,19 +182,18 @@ namespace HospitalAPI.Controllers
                 var user = await _patient.SearchDoctorBySpecializationForPatient(name);
                 if (user == null)
                 {
-                    return BadRequest("Unable to get the doctor.");
+                    return BadRequest(new Error(2,"Unable to get the doctors ."));
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
