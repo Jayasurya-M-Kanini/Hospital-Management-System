@@ -51,15 +51,15 @@ function Login() {
           toast.success("successful");
           navigate("/DoctorProfile");
         }
-        else if(myData.userId=="" && myData.password==""){
-          console.log(myData);
-          toast.warning("Kindly Fill all the fields !!");
+        else if(myData.userId==0 && myData.password!=""){
+          toast.warning("Kindly Fill the User Id Field!!");
         }
-        else if(myData.userId=="" && myData.password!=""){
+        else if(myData.userId!=0 && myData.password==""){
           toast.warning("Kindly Fill the Password Field!!");
         }
-        else if(myData.userId!="" && myData.password==""){
-          toast.warning("Kindly Fill the User Id Field!!");
+        else if(myData.userId==0 && myData.password==""){
+          console.log(myData);
+          toast.warning("Kindly Fill all the fields !!");
         }
       })
       .catch((err) => {

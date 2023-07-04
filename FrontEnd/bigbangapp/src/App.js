@@ -153,9 +153,9 @@ function App() {
             <Route
             path="/Error"
             element={
-              <PageNotFoundProtected token={token} role={role}>
+              // <PageNotFoundProtected token={token} role={role}>
                 <PageNotFound/>
-              </PageNotFoundProtected>
+              // {/* </PageNotFoundProtected> */}
             }
             />
         </Routes> 

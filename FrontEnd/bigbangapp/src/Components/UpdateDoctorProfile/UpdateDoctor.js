@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './UpdateDoctor.css';
 import { useNavigate } from "react-router-dom";
 import DoctorNavBar from "../DoctorNavbar/DoctorNavbar";
+import { toast } from "react-toastify";
 
 
  const UpdateDoctor = () => {
@@ -35,7 +36,7 @@ import DoctorNavBar from "../DoctorNavbar/DoctorNavbar";
           if(data.status >= 200 && data.status<=300){
               var myData = await data.json();
               console.log(myData);
-              alert("Doctor profile updated successfully!!")
+              toast.success("Doctor profile updated successfully!!")
               navigate("/DoctorProfile");
           }
       })
@@ -43,6 +44,11 @@ import DoctorNavBar from "../DoctorNavbar/DoctorNavbar";
           console.log(err.error)
       })
     }
+
+    const isFormValid = () => {
+      return formData.phoneNumber !== "" && formData.emailId !== ""&& formData.specialization!==""&&formData.experience!==0;
+    }
+
    return (
     <div>
 <div className="update-container">
@@ -107,7 +113,7 @@ import DoctorNavBar from "../DoctorNavbar/DoctorNavbar";
         />
       </div><br/>
       <div className="prof-btn">
-      <button className="up-prof-btn" type="submit" onClick={update} >SUMBIT</button>
+      <button className="up-prof-btn" type="submit" onClick={update} disabled={!isFormValid()} >SUMBIT</button>
       </div>
     </div>
     </div>

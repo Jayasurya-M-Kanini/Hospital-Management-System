@@ -12,7 +12,6 @@ import { useEffect } from "react";
 
 
 function AdminRegister() {
-
   const [admin, setAdmin] = useState({
     "user": {},
     "name": "",

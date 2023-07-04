@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import '../UpdateDoctorProfile/UpdateDoctor.css';
 import { useNavigate } from "react-router-dom";
 import PatientNavBar from "../PatientNavbar/PatientNavbar";
+import { toast } from "react-toastify";
 
 
  const UpdatePatient = () => {
@@ -32,7 +33,7 @@ import PatientNavBar from "../PatientNavbar/PatientNavbar";
           if(data.status >= 200 && data.status<=300){
               var myData = await data.json();
               console.log(myData);
-              alert("Patient Details Updated Succesfully");
+              toast.success("Patient Details Updated Succesfully");
               navigate('/PatientProfile');
           }
       })

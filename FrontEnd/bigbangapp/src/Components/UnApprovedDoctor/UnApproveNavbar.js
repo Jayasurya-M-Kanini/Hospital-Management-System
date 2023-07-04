@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {FaSignOutAlt } from "react-icons/fa";
 import "../Navbar/Navbar.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function UnApproveNavbar() {  
     const [navActive, setNavActive] = React.useState(false);
@@ -20,7 +21,7 @@ function UnApproveNavbar() {
 <div className="nav-main">
 <nav class="navbar-container">
         <div class="logo-container">
-            <a href="index.html">Healthcare</a>
+        <a href="#">Healthcare</a>
         </div>
 
         <div className="bars" onClick={toggleNavItems}>

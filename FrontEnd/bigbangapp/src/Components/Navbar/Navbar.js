@@ -14,7 +14,7 @@ function NavBar() {
 <div className="nav-main">
 <nav class="navbar-container">
         <div class="logo-container">
-            <a href="index.html">Healthcare</a>
+            <Link to="/">Healthcare</Link>
         </div>
 
         <div className="bars" onClick={toggleNavItems}>

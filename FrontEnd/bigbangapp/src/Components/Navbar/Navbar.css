@@ -1,12 +1,10 @@
 
-
-
-
-
 a {
     text-decoration: none;
 }
-
+.button{
+    cursor: pointer;
+}
 .navbar-container {
     position: fixed;
     display: flex;

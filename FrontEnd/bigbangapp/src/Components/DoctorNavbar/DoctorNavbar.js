@@ -23,7 +23,7 @@ function DoctorNavBar() {
 <div className="nav-main">
 <nav class="navbar-container">
         <div class="logo-container">
-            <a href="index.html">Healthcare</a>
+        <a href="#">Healthcare</a>
         </div>
 
         <div className="bars" onClick={toggleNavItems}>
