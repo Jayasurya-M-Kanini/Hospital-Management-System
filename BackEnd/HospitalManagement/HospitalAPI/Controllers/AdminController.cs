@@ -83,7 +83,7 @@ namespace HospitalAPI.Controllers
         [HttpGet("View_All_Doctors")]
         [ProducesResponseType(typeof(ActionResult<ICollection<Doctor>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Doctor>>> ViewAllDoctors()
         {
             try
@@ -113,7 +113,7 @@ namespace HospitalAPI.Controllers
         [HttpGet("View_All_UnApproved_Doctors")]
         [ProducesResponseType(typeof(ActionResult<ICollection<Doctor>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Doctor>>> ViewAllUnApprovedDoctors()
         {
             try
@@ -143,7 +143,7 @@ namespace HospitalAPI.Controllers
         [HttpGet("View_All_Patients")]
         [ProducesResponseType(typeof(ActionResult<ICollection<Patient>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Patient>>> ViewAllPatients()
         {
             try
@@ -171,7 +171,7 @@ namespace HospitalAPI.Controllers
 
 
         [HttpPut("Update_Doctor_Status")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(ActionResult<StatusDTO>), StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<StatusDTO>> UpdateUserStatus(StatusDTO userApproval)
@@ -199,10 +199,41 @@ namespace HospitalAPI.Controllers
             }
         }
 
+
+        [HttpGet("Search_Patient_By_Name")]
+        [ProducesResponseType(typeof(Patient), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<ICollection<Patient>>> SearchPatientByName(string name)
+        {
+            try
+            {
+                var user = await _admin.SearchPatientByName(name);
+                if (user == null)
+                {
+                    return BadRequest(new Error(1, "No Patient available"));
+                }
+                return Ok(user);
+            }
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
         [HttpGet("Search_By_Name")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
         public async Task<ActionResult<ICollection<Doctor>>> SearchByName(string name)
         {
             try
@@ -214,15 +245,14 @@ namespace HospitalAPI.Controllers
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -233,7 +263,7 @@ namespace HospitalAPI.Controllers
         [HttpGet("Search_By_Name_UnApproved")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Doctor>>> SearchByNameUnApproved(string name)
         {
             try
@@ -245,15 +275,14 @@ namespace HospitalAPI.Controllers
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -263,7 +292,7 @@ namespace HospitalAPI.Controllers
         [HttpGet("Search_By_Specialization")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
+        //[Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Doctor>>> SearchBySpecialization(string name)
         {
             try
@@ -275,15 +304,14 @@ namespace HospitalAPI.Controllers
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -293,7 +321,7 @@ namespace HospitalAPI.Controllers
         [HttpGet("Search_By_Specialization_UnApproved")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<Doctor>>> SearchBySpecializationUnApproved(string name)
         {
             try
@@ -305,15 +333,14 @@ namespace HospitalAPI.Controllers
                 }
                 return Ok(user);
             }
-
-            //catch (InvalidArgumentNullException iane)
-            //{
-            //    return BadRequest(new Error(2, iane.Message));
-            //}
-            //catch (InvalidNullReferenceException inre)
-            //{
-            //    return BadRequest(new Error(3, inre.Message));
-            //}
+            catch (InvalidArgumentNullException iane)
+            {
+                return BadRequest(new Error(2, iane.Message));
+            }
+            catch (InvalidNullReferenceException inre)
+            {
+                return BadRequest(new Error(3, inre.Message));
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -323,7 +350,7 @@ namespace HospitalAPI.Controllers
         [HttpDelete("Delete_Doctor")]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Doctor>> DeleteDoctor(int key)
         {
             try

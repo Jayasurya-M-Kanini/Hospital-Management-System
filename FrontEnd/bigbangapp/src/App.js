@@ -32,17 +32,19 @@ import UpdateDoctorProtected from "./Protected/UpdateDoctorProtected";
 import UpdatePatientProtected from "./Protected/UpdatePatientProtected";
 import Search from "./Components/ApprovedSearchBar/Search";
 import UnApprovedSearch from "./Components/UnApprovedSearchBar/UnApprovedSearch";
-
+import PageNotFound from "./Components/Error/PageNotFound";
+import ApprovedSearchBarProtected from "./Protected/ApprovedSearchBarProtected";
+import UnApprovedSearchProtected from "./Protected/UnApprovedSearchProtected";
+import PageNotFoundProtected from "./Protected/PageNotFoundProtected";
 
 
 function App() {
   var token;
+  var role;
   return (
     <div>
-      <ToastContainer autoClose={1500}/>
+      <ToastContainer autoClose={1000}/>
       <BrowserRouter>
-      {/* <Search/> */}
-      {/* <UnApprovedSearch/> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="Login" element={<Login />} />
@@ -55,7 +57,7 @@ function App() {
           <Route
             path="/AdminProfile"
             element={
-              <AdminProfileProtected token={token}>
+              <AdminProfileProtected token={token} role={role}>
                 <AdminProfile />
               </AdminProfileProtected>
             }
@@ -64,7 +66,7 @@ function App() {
           <Route
             path="/PatientProfile"
             element={
-              <PatientProfileProtected token={token}>
+              <PatientProfileProtected token={token} role={role}>
                 <PatientProfile />
               </PatientProfileProtected>
             }
@@ -72,7 +74,7 @@ function App() {
           <Route
             path="/DoctorProfile"
             element={
-              <DoctorProfileProtected token={token}>
+              <DoctorProfileProtected token={token} role={role}>
                 <DoctorProfile />
               </DoctorProfileProtected>
             }
@@ -80,7 +82,7 @@ function App() {
           <Route
             path="/UpdatePatient"
             element={
-              <UpdatePatientProtected token={token}>
+              <UpdatePatientProtected token={token} role={role}>
                 <UpdatePatient />
               </UpdatePatientProtected>
             }
@@ -88,7 +90,7 @@ function App() {
           <Route
             path="/UpdateDoctor"
             element={
-              <UpdateDoctorProtected token={token}>
+              <UpdateDoctorProtected token={token} role={role}>
                 <UpdateDoctor />
               </UpdateDoctorProtected>
             }
@@ -96,7 +98,7 @@ function App() {
           <Route
             path="/ListPatients"
             element={
-              <ListPatientsProtected token={token}>
+              <ListPatientsProtected token={token} role={role}>
                 <ListPatients />
               </ListPatientsProtected>
             }
@@ -104,7 +106,7 @@ function App() {
           <Route
             path="/ListAllUnApprovedDoctors"
             element={
-              <ListAllUnApprovedDoctorsProtected token={token}>
+              <ListAllUnApprovedDoctorsProtected token={token} role={role}>
                 <ListAllUnApprovedDoctors />
               </ListAllUnApprovedDoctorsProtected>
             }
@@ -112,7 +114,7 @@ function App() {
           <Route
             path="/ListAllApprovedDoctors"
             element={
-              <ListAllApprovedDoctorsProtected token={token}>
+              <ListAllApprovedDoctorsProtected token={token} role={role}>
                 <ListAllApprovedDoctors />
               </ListAllApprovedDoctorsProtected>
             }
@@ -120,7 +122,7 @@ function App() {
           <Route
             path="/AdminDoctorsTab"
             element={
-              <AdminDoctorsTabProtected token={token}>
+              <AdminDoctorsTabProtected token={token} role={role}>
                 <AdminDoctorsTab />
               </AdminDoctorsTabProtected>
             }
@@ -128,7 +130,7 @@ function App() {
           <Route
             path="/PatientApprovedDoctors"
             element={
-              <PatientApprovedDoctorsProtected token={token}>
+              <PatientApprovedDoctorsProtected token={token} role={role}>
                 <ApprovedDoctors />
               </PatientApprovedDoctorsProtected>
             }
@@ -136,20 +138,27 @@ function App() {
           <Route
             path="/Search"
             element={
-              // <PatientApprovedDoctorsProtected token={token}>
+               <ApprovedSearchBarProtected token={token} role={role}>
                 <Search />
-              // </PatientApprovedDoctorsProtected>
+               </ApprovedSearchBarProtected>
             }
           />
                     <Route
             path="/UnApprovedSearch"
             element={
-              // <PatientApprovedDoctorsProtected token={token}>
+              <UnApprovedSearchProtected token={token} role={role}>
                 <UnApprovedSearch/>
-              // </PatientApprovedDoctorsProtected>
+              </UnApprovedSearchProtected>
+            }/>
+            <Route
+            path="/Error"
+            element={
+              <PageNotFoundProtected token={token} role={role}>
+                <PageNotFound/>
+              </PageNotFoundProtected>
             }
-          />
-        </Routes>
+            />
+        </Routes> 
       </BrowserRouter>
     </div>
   );

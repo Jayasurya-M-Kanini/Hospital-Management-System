@@ -40,6 +40,10 @@ import PatientNavBar from "../PatientNavbar/PatientNavbar";
           console.log(err.error)
       })
   }
+  
+  const isFormValid = () => {
+    return formData.phoneNumber !== "" && formData.emailId !== "";
+  }
    return (
     <div>
 <div className="update-container">
@@ -75,7 +79,7 @@ import PatientNavBar from "../PatientNavbar/PatientNavbar";
         />
       </div><br/>
       <div className="prof-btn">
-      <button className="up-prof-btn" type="submit"onClick={update} >SUMBIT</button>
+      <button className="up-prof-btn" type="submit"onClick={update} disabled={!isFormValid()} >SUMBIT</button>
       
       </div>
     </div>

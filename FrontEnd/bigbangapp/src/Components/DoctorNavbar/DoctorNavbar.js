@@ -15,8 +15,7 @@ function DoctorNavBar() {
     const navigate = useNavigate();
 
     const logout = () => {
-        localStorage.removeItem("id");
-        localStorage.removeItem("token");
+        localStorage.clear();
         navigate("/");
     };
 
@@ -37,7 +36,7 @@ function DoctorNavBar() {
             <li class="nav-link"><Link to="/DoctorProfile">Profile</Link></li>
             <li class="nav-link"><Link to="/UpdateDoctor">Update Pofile</Link></li>
             <div class="login-register" onClick={logout}>
-                <a href="#" class="button"><FaSignOutAlt className="navbar-icon"/>&nbsp;&nbsp;LogOut</a>
+                <li class="button"><FaSignOutAlt className="navbar-icon"/>&nbsp;&nbsp;LogOut</li>
             </div>
         </ul>
     </nav>

@@ -1,11 +1,14 @@
 import { Navigate } from "react-router-dom";
 
-function PatientProfileProtected({token,children})
+function PatientProfileProtected({token,role,children})
 {
+    role=localStorage.getItem("role");
     token=localStorage.getItem("token");
-    if(token!=null)
+    if(token!=null && role=="Patient")
         return children;
-    return <Navigate to='/'/>
-}
+    else {
+            localStorage.clear();
+            return <Navigate to='/Error'/>;
+        }}
 
 export default PatientProfileProtected;

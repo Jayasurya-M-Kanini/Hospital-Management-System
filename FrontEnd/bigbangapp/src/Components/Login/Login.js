@@ -18,15 +18,9 @@ function Login() {
     "status": ""
   });
 
-  const login = () => {
-    // Check if all fields are filled
-    // for (const field in loginData) {
-    //   if (!loginData[field]) {
-    //     alert("Please fill in all the fields");
-    //     return;
-    //   }
-    // }
 
+
+  const login = () => {
     fetch("https://localhost:7235/api/User/Login", {
       method: "POST",
       headers: {
@@ -38,27 +32,39 @@ function Login() {
       .then(async (data) => {
         var myData = await data.json();
         localStorage.setItem("id", myData.userId);
+        localStorage.setItem("role", myData.role);
         localStorage.setItem("token", myData.token);
         if (myData.role === "Patient") {
           console.log(myData);
-          navigate("/PatientProfile");
           toast.success("successful");
+          navigate("/PatientProfile");
         } else if (myData.role === "Admin") {
           console.log(myData);
-          navigate("/AdminProfile");
           toast.success("successful");
+          navigate("/AdminProfile");
         } else if (myData.role === "Doctor" && myData.token == null) {
           console.log(myData);
-          navigate("/UnApproveProfile");
           toast.warning("Oops!! It seems you are not yet approved . Try login later !!");
+          navigate("/UnApproveProfile");
         } else if (myData.role === "Doctor" && myData.token != null) {
           console.log(myData);
-          navigate("/DoctorProfile");
           toast.success("successful");
+          navigate("/DoctorProfile");
+        }
+        else if(myData.userId=="" && myData.password==""){
+          console.log(myData);
+          toast.warning("Kindly Fill all the fields !!");
+        }
+        else if(myData.userId=="" && myData.password!=""){
+          toast.warning("Kindly Fill the Password Field!!");
+        }
+        else if(myData.userId!="" && myData.password==""){
+          toast.warning("Kindly Fill the User Id Field!!");
         }
       })
       .catch((err) => {
-        toast.error("Kindly check your userId and Password!!");
+        console.log("hi");
+        toast.error("Kindly check your User Id and Password !!");
         console.log(err.error);
       });
   };
@@ -81,7 +87,7 @@ function Login() {
                   className="form-control"
                   name="userName"
                   id="userName"
-                  type="text"
+                  type="number"
                   placeholder="User ID"
                   required
                   onChange={(event) => {

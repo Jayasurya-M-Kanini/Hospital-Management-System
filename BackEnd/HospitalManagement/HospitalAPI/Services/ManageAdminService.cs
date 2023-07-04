@@ -96,6 +96,21 @@ namespace HospitalAPI.Services
             return null;
         }
 
+        public async Task<ICollection<Patient?>?> SearchPatientByName(string name)
+        {
+            var users = await _patientRepo.GetAll();
+            if (users != null)
+            {
+                var doctors = users.Where(i => i.Name.ToUpper().Contains(name.ToUpper())).ToList();
+                if (doctors.Count > 0)
+                {
+                    return doctors;
+                }
+            }
+            return null;
+        }
+
+
         public async Task<ICollection<Doctor>?> SearchByName(string name)
         {
             var users = await _doctorRepo.GetAll();

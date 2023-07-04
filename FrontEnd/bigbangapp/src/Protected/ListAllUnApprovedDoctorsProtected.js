@@ -1,11 +1,14 @@
 import { Navigate } from "react-router-dom";
 
-function ListAllUnApprovedDoctorsProtected({token,children})
+function ListAllUnApprovedDoctorsProtected({token,role,children})
 {
+    role=localStorage.getItem("role");
     token=localStorage.getItem("token");
-    if(token!=null)
+    if(token!=null && role=="Admin")
         return children;
-    return <Navigate to='/'/>
-}
+    else {
+            localStorage.clear();
+            return <Navigate to='/Error'/>;
+        }}
 
 export default ListAllUnApprovedDoctorsProtected;

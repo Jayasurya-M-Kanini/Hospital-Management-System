@@ -6,9 +6,13 @@ import login from "../images/Admin-rafiki.png";
 import AdminNavBar from "../AdminNavbar/AdminNavbar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import emailjs from 'emailjs-com';
+import emailjsConfig from './emailjs.config';
+import { useEffect } from "react";
 
 
 function AdminRegister() {
+
   const [admin, setAdmin] = useState({
     "user": {},
     "name": "",
@@ -18,15 +22,19 @@ function AdminRegister() {
 
   const navigate = useNavigate();
 
+  const handleInputChange = (e) => {
+    setAdmin({
+      ...admin,
+      [e.target.name]: e.target.value
+    });
+  };
+
   const register = () => {
     // Check if all fields are filled
     if (!admin.name || !admin.phoneNumber || !admin.emailId) {
       toast.warning("Please fill in all the fields");
       return;
     }
-
-    console.log(admin);
-
     fetch("https://localhost:7235/api/Admin/Admin_Registration", {
       method: "POST",
       headers: {
@@ -40,8 +48,32 @@ function AdminRegister() {
         var myData = await data.json();
         console.log(myData);
         toast.success("Registered Successfully");
-        alert("User Id: " + myData.userId);
-        navigate("/AdminProfile");
+        // Send email to the user
+        const password = admin.name.substring(0, 2) + '1234';
+        const templateParams = {
+          // from_name: 'Jayasurya',
+          // from_email: 'jayasuryam73@gmail.com',
+          to_name: admin.name,
+          to_email: admin.emailId,
+          subject: 'Account Created Successfully',
+          message: `Dear ${admin.name},\n\nYour account has been successfully created!\n\nYour User Id is :${myData.userId}\n\nYour password is: ${password}\n\nPlease login with your email and the provided password.\n\nThank you,\nYour Company`
+        };
+
+        emailjs.send(
+          emailjsConfig.serviceID,
+          emailjsConfig.templateID,
+          templateParams,
+          emailjsConfig.userID
+        )
+          .then((response) => {
+            console.log('Email sent successfully!', response.status, response.text);
+            navigate("/AdminProfile");
+          })
+          .catch((error) => {
+            console.error('Error sending email:', error);
+            toast.error("Error occurred while sending email. Please try again.");
+            navigate("/AdminProfile");
+          });
       })
       .catch((err) => {
         toast.error("Error occured, Kindly retry again !!")
@@ -60,50 +92,38 @@ function AdminRegister() {
               <div className="input-group">
                 <input
                   className="form-control"
-                  name="userName"
+                  name="name"
                   id="userName"
                   type="text"
                   placeholder="User Name"
                   required
-                  onChange={(event) => {
-                    setAdmin({
-                      ...admin,
-                      "name": event.target.value
-                    });
-                  }}
+                  value={admin.name}
+                  onChange={handleInputChange}
                 />
                 <span className="lighting"></span>
               </div>
               <div className="input-group">
                 <input
                   className="form-control"
-                  name="adminphone"
+                  name="phoneNumber"
                   id="adminphone"
                   type="phone"
                   placeholder="Phone Number"
                   required
-                  onChange={(event) => {
-                    setAdmin({
-                      ...admin,
-                      "phoneNumber": event.target.value
-                    });
-                  }}
+                  value={admin.phoneNumber}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="input-group">
                 <input
                   className="form-control"
-                  name="adminemail"
+                  name="emailId"
                   id="adminemail"
                   type="email"
                   placeholder="Email Id"
                   required
-                  onChange={(event) => {
-                    setAdmin({
-                      ...admin,
-                      "emailId": event.target.value
-                    });
-                  }}
+                  value={admin.emailId}
+                  onChange={handleInputChange}
                 />
               </div>
               <button id="login-btn" onClick={register}>

@@ -36,7 +36,7 @@ function PatientNavBar() {
             <li class="nav-link"><Link to="/UpdatePatient">Update Profile</Link></li>
             <li class="nav-link"><Link to="/PatientApprovedDoctors">Doctors</Link></li>
             <div class="login-register" onClick={logout}>
-                <a href="#" class="button"><FaSignOutAlt className="navbar-icon"/>&nbsp;&nbsp;LogOut</a>
+            <li class="button"><FaSignOutAlt className="navbar-icon"/>&nbsp;&nbsp;LogOut</li>
             </div>
         </ul>
     </nav>

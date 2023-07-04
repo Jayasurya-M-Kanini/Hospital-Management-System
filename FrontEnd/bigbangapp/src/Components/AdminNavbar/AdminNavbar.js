@@ -3,6 +3,8 @@ import { FaBars, FaUser, FaUserMd, FaUserInjured, FaUserPlus, FaSignOutAlt } fro
 import "../Navbar/Navbar.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useEffect, useHistory } from "react-router-dom";
+
 
 function AdminNavBar() {  
     const [navActive, setNavActive] = React.useState(false);
@@ -37,7 +39,7 @@ function AdminNavBar() {
             <li class="nav-link"><Link to='/AdminDoctorsTab'>Doctors</Link></li>
             <li class="nav-link"><Link to='/AdminRegister'>Add Admin</Link></li>
             <div class="login-register" onClick={logout}>
-                <a href="#" class="button"><FaSignOutAlt className="navbar-icon"/>&nbsp;&nbsp;LogOut</a>
+            <li class="button"><FaSignOutAlt className="navbar-icon"/>&nbsp;&nbsp;LogOut</li>
             </div>
         </ul>
     </nav>

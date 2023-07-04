@@ -13,6 +13,8 @@ namespace HospitalAPI.Interfaces
 
         public Task<StatusDTO?> ChangeDoctorStatus(StatusDTO userApproval);
         public Task<Doctor?> DeleteDoctorById(int key);
+        public Task<ICollection<Patient?>?> SearchPatientByName(string name);
+
         public Task<ICollection<Doctor?>?> SearchByName(string name);
         public Task<ICollection<Doctor>?> SearchByNameForUnApproved(string name);
 

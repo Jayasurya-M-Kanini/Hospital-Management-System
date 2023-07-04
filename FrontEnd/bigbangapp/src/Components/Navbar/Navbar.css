@@ -124,13 +124,16 @@ a {
 
 
 
-@media(max-width: 1000px) {
+@media(max-width: 1030px) {
     .navbar-container {
         padding: 0 1rem;
     }
-
+    .logo-container{
+        width: 20px;
+    }
     .navbar-container .nav-items {
         gap: 0.1rem;
+        /* margin-right: 7rem; */
     }
 
     .navbar-container .nav-items .nav-link a,
@@ -150,8 +153,11 @@ a {
     .navbar-container .nav-items .nav-link:after {
         border-top: 2px solid #fff;
     }
-    .navbar-container .logo-container a{
+    /* .navbar-container .logo-container a{
         margin-right: 3rem;
+    } */
+    .logo-container{
+        margin-right: 10rem;
     }
     .navbar-container .nav-items {
         flex-direction: column;

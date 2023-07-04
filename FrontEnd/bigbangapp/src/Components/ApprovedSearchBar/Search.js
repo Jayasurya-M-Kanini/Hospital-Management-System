@@ -26,6 +26,7 @@ function Search() {
               method: "GET",
               headers: {
                 accept: "text/plain",
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
               },
             }
           );
@@ -36,6 +37,7 @@ function Search() {
               method: "GET",
               headers: {
                 accept: "text/plain",
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
               },
             }
           );
@@ -86,7 +88,7 @@ function Search() {
             method: "GET",
             headers: {
               accept: "text/plain",
-              // 'Authorization': 'Bearer ' + localStorage.getItem('token')
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
           }
         );
@@ -134,7 +136,7 @@ function Search() {
             headers: {
               accept: "text/plain",
               "Content-Type": "application/json",
-              // 'Authorization': 'Bearer ' + localStorage.getItem('token')
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
           }
         );
@@ -159,7 +161,7 @@ function Search() {
             method: 'DELETE',
             headers: {
               accept: 'text/plain',
-              // 'Authorization': 'Bearer ' + localStorage.getItem('token')
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
           }
         );
@@ -190,7 +192,7 @@ function Search() {
         <div className="search-bar">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search Name / Specialization"
           id="search-input"
           value={searchQuery}
           onChange={handleChange}

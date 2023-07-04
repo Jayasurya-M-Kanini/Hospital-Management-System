@@ -27,6 +27,7 @@ function UnApprovedSearch() {
               method: "GET",
               headers: {
                 accept: "text/plain",
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
               },
             }
           );
@@ -37,6 +38,7 @@ function UnApprovedSearch() {
               method: "GET",
               headers: {
                 accept: "text/plain",
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
               },
             }
           );
@@ -87,7 +89,7 @@ function UnApprovedSearch() {
             method: "GET",
             headers: {
               accept: "text/plain",
-              // 'Authorization': 'Bearer ' + localStorage.getItem('token')
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
           }
         );
@@ -135,7 +137,7 @@ function UnApprovedSearch() {
             headers: {
               accept: "text/plain",
               "Content-Type": "application/json",
-              // 'Authorization': 'Bearer ' + localStorage.getItem('token')
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
           }
         );
@@ -160,7 +162,7 @@ function UnApprovedSearch() {
             method: 'DELETE',
             headers: {
               accept: 'text/plain',
-              // 'Authorization': 'Bearer ' + localStorage.getItem('token')
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
           }
         );
@@ -191,7 +193,7 @@ function UnApprovedSearch() {
         <div className="search-bar">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search  Name / Specialization"
           id="search-input"
           value={searchQuery}
           onChange={handleChange}

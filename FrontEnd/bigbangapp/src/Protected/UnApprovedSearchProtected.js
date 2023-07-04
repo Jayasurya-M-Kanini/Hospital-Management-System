@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 
-function AdminDoctorsTabProtected({token,role,children})
+function UnApprovedSearchProtected({token,role,children})
 {
     role=localStorage.getItem("role");
     token=localStorage.getItem("token");
@@ -12,4 +12,4 @@ function AdminDoctorsTabProtected({token,role,children})
     }
 }
 
-export default AdminDoctorsTabProtected;
+export default UnApprovedSearchProtected;
